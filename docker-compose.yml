@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  atprotoblog:
+    image: ghcr.io/arcestia/atprotoblog:latest
+    container_name: atprotoblog
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
