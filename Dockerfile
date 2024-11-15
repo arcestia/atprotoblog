@@ -27,10 +27,10 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Copy built assets from builder
+# Copy only necessary files from builder
+COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/build ./build
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/package.json .
 COPY --from=builder /app/node_modules ./node_modules
 
 # Set environment variables
@@ -49,4 +49,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:3000/ || exit 1
 
 # Command to run the app
-CMD ["yarn", "remix-serve", "./build/index.js"]
+CMD ["node", "./build/index.js"]
