@@ -51,7 +51,7 @@ export const ThemeSwitcher = () => {
         <FontAwesomeIcon
           icon={faSun}
           className={`
-            text-lg absolute
+            w-5 h-5 absolute
             transition-all duration-300 ease-in-out
             ${theme === 'dark'
               ? 'opacity-0 rotate-90 scale-50'
@@ -62,7 +62,7 @@ export const ThemeSwitcher = () => {
         <FontAwesomeIcon
           icon={faMoon}
           className={`
-            text-lg absolute
+            w-5 h-5 absolute
             transition-all duration-300 ease-in-out
             ${theme === 'light'
               ? 'opacity-0 rotate-90 scale-50'

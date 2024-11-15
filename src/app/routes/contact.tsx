@@ -20,13 +20,13 @@ export default function Contact() {
       name: 'Bluesky',
       username: '@skiddle.id',
       url: 'https://bsky.app/profile/skiddle.id',
-      icon: <FontAwesomeIcon icon={faBluesky} className="text-2xl" />,
+      icon: <FontAwesomeIcon icon={faBluesky} className="w-5 h-5" />,
     },
     {
       name: 'GitHub',
       username: '@arcestia',
       url: 'https://github.com/arcestia',
-      icon: <FontAwesomeIcon icon={faGithub} className="text-2xl" />,
+      icon: <FontAwesomeIcon icon={faGithub} className="w-5 h-5" />,
     },
   ]
 
@@ -72,7 +72,7 @@ export default function Contact() {
             className="inline-flex items-center accent-blue hover-text-purple transition-colors"
           >
             View ATProtoBlog Repository 
-            <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
+            <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4 ml-2" />
           </a>
         </div>
       </div>

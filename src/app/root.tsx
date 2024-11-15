@@ -84,7 +84,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   className="text-secondary hover-text-blue transition-colors"
                   aria-label="Bluesky Profile"
                 >
-                  <FontAwesomeIcon icon={faBluesky} className="text-xl" />
+                  <FontAwesomeIcon icon={faBluesky} className="w-5 h-5" />
                 </a>
                 <a
                   href="https://github.com/arcestia"
@@ -93,7 +93,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   className="text-secondary hover-text-blue transition-colors"
                   aria-label="GitHub Profile"
                 >
-                  <FontAwesomeIcon icon={faGithub} className="text-xl" />
+                  <FontAwesomeIcon icon={faGithub} className="w-5 h-5" />
                 </a>
               </div>
               <p className="text-secondary text-sm">

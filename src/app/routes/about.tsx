@@ -136,7 +136,7 @@ export default function About() {
                 key={skill.name}
                 className="bg-tertiary text-primary p-4 rounded-lg flex items-center gap-3 hover:bg-secondary transition-colors duration-200"
               >
-                <FontAwesomeIcon icon={skill.icon} className={`text-xl ${skill.color}`} />
+                <FontAwesomeIcon icon={skill.icon} className={`w-5 h-5 ${skill.color}`} />
                 <span>{skill.name}</span>
               </div>
             ))}
@@ -160,7 +160,7 @@ export default function About() {
                 key={interest.name}
                 className="flex items-center gap-3 text-lg text-primary"
               >
-                <FontAwesomeIcon icon={interest.icon} className={`${interest.color}`} />
+                <FontAwesomeIcon icon={interest.icon} className={`w-5 h-5 ${interest.color}`} />
                 {interest.name}
               </li>
             ))}

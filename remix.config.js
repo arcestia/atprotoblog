@@ -6,7 +6,7 @@ export default {
   appDirectory: "src/app",
   assetsBuildDirectory: "public/build",
   publicPath: "/build/",
-  serverBuildPath: "build/index.js",
+  serverBuildPath: "build/server/index.js",
   future: {
     v3_fetcherPersist: true,
     v3_lazyRouteDiscovery: true,
