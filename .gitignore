@@ -5,3 +5,7 @@ node_modules
 .env
 *.xml
 .idea
+# Package Lock Files
+yarn.lock
+package-lock.json
+pnpm-lock.yaml

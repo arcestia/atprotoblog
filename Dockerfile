@@ -1,14 +1,20 @@
 # Use an official Node.js image as the base
-FROM node:18
+FROM node:18-alpine AS builder
 
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy package files
-COPY package.json yarn.lock ./
+# Set yarn network timeout and retries
+ENV YARN_NETWORK_TIMEOUT=300000
+ENV YARN_NETWORK_CONCURRENCY=1
 
-# Install dependencies
-RUN yarn install
+# Copy package files
+COPY package.json .
+COPY .yarnrc.yml .
+COPY .npmrc .
+
+# Install dependencies with increased network timeout and retries
+RUN yarn install --network-timeout 300000 --network-concurrency 1 --frozen-lockfile
 
 # Copy the rest of the application files
 COPY . .
@@ -16,10 +22,24 @@ COPY . .
 # Build the application
 RUN yarn build
 
+# Production image
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Copy built assets from builder
+COPY --from=builder /app/build ./build
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/package.json .
+COPY --from=builder /app/node_modules ./node_modules
+
+# Set environment variables
 ENV ATP_SERVICE="https://pds.skiddle.id"
 ENV ATP_IDENTIFIER="skiddle.id"
 ENV ATP_DID="did:plc:kbpcqituf5ku6xorxo2wzdee"
 ENV REDIS_URL="redis://redis:6379"
+ENV NODE_ENV=production
+ENV PORT=3000
 
 # Expose the port on which the app will run
 EXPOSE 3000
