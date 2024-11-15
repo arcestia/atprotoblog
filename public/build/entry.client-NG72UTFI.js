@@ -1,1 +1,0 @@
-import{a as E,i}from"/build/_shared/chunk-2KHLSYOU.js";import{b as u,d as t,e as y,f as n}from"/build/_shared/chunk-RKJSHOWP.js";var c=u(r=>{"use strict";var a=E();r.createRoot=a.createRoot,r.hydrateRoot=a.hydrateRoot;var f});var o=t(y(),1),s=t(c(),1),e=t(n(),1);(0,o.startTransition)(()=>{(0,s.hydrateRoot)(document,(0,e.jsx)(o.StrictMode,{children:(0,e.jsx)(i,{})}))});
