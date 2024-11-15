@@ -112,7 +112,7 @@ const markdownComponents: Partial<Components> = {
   h5: ({children}) => (
     <h5 className="text-base md:text-lg font-bold pt-4">{children}</h5>
   ),
-  p: ({children}) => <p className="py-2 text-xl text-white">{children}</p>,
+  p: ({children}) => <p className="py-2 text-xl text-primary">{children}</p>,
   a: ({children, href}) => <Link href={href as string}>{children}</Link>,
   ul: ({children}) => <ul className="list-disc pl-4">{children}</ul>,
   ol: ({children}) => <ol className="list-decimal pl-4">{children}</ol>,
@@ -123,10 +123,12 @@ const markdownComponents: Partial<Components> = {
     </blockquote>
   ),
   code: ({children}) => (
-    <code className="bg-gray p-1 rounded-md">{children}</code>
+    <code className="bg-tertiary text-primary px-2 py-1 rounded-md font-mono text-sm">
+      {children}
+    </code>
   ),
   pre: ({children}) => (
-    <pre className="bg-gray p-2 rounded-md overflow-x-auto my-4">
+    <pre className="bg-tertiary text-primary p-4 rounded-md overflow-x-auto my-4 font-mono">
       {children}
     </pre>
   ),
