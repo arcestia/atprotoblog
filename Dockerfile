@@ -49,4 +49,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:3000/ || exit 1
 
 # Command to run the app
-CMD ["node", "./build/index.js"]
+CMD ["yarn", "remix-serve", "build/index.js"]
