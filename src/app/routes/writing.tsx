@@ -25,7 +25,7 @@ export const loader = async () => {
   const postsFiltered = posts
     .filter(p => !p.content?.startsWith('NOT_LIVE'))
     .map(post => ({
-      type: 'blog' as const,
+      type: 'atprotoblog' as const,
       title: post.title,
       url: `/posts/${post.rkey}`,
       date: post.createdAt,
@@ -64,7 +64,7 @@ function WritingItemCard({ item }: { item: WritingItem }) {
         <div className="flex flex-col w-full">
           <p className="text-primary tracking-tight">{item.title}</p>
           <p className="text-secondary text-sm italic">
-            {isExternal ? (item as ExternalLink).source : 'Blog'}
+            {isExternal ? (item as ExternalLink).source : 'Atprotoblog'}
           </p>
         </div>
       </div>
@@ -89,7 +89,7 @@ export default function Writing() {
 
       <div className="flex flex-col">
         {items.map((item, index) => (
-          <WritingItemCard key={item.type === 'blog' ? item.rkey : `external-${index}`} item={item} />
+          <WritingItemCard key={item.type === 'atprotoblog' ? item.rkey : `external-${index}`} item={item} />
         ))}
       </div>
     </div>

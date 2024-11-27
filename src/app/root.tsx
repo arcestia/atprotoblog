@@ -11,6 +11,7 @@ import {
 import { LinksFunction } from '@remix-run/node'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBluesky, faGithub } from '@fortawesome/free-brands-svg-icons'
+import { faRss } from '@fortawesome/free-solid-svg-icons'
 
 import styles from './tailwind.css?url'
 import themeStyles from './styles/theme.css?url'
@@ -97,6 +98,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   aria-label="GitHub Profile"
                 >
                   <FontAwesomeIcon icon={faGithub} className="w-5 h-5" />
+                </a>
+                <a
+                  href="/feed"
+                  className="text-secondary hover-text-blue transition-colors"
+                  aria-label="RSS Feed"
+                >
+                  <FontAwesomeIcon icon={faRss} className="w-5 h-5" />
                 </a>
               </div>
               <p className="text-secondary text-sm">

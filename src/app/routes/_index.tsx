@@ -1,23 +1,12 @@
 import React from 'react'
 import {json, MetaFunction} from '@remix-run/node'
-import {getPosts, getProfile} from '../../atproto'
+import {getProfile} from '../../atproto'
 import {useLoaderData} from '@remix-run/react'
-import {WhtwndBlogEntryView} from '../../types/whtwnd'
 import {AppBskyActorDefs} from '@atproto/api'
-import Markdown from 'react-markdown'
 
 export const loader = async () => {
-  const posts = await getPosts(undefined)
   const profile = await getProfile()
-
-  const postsFiltered = posts.filter(p => !p.content?.startsWith('NOT_LIVE'))
-
-  const postsShortened = postsFiltered.map(p => {
-    p.content = p.content?.slice(0, 300)
-    return p
-  })
-
-  return json({posts: postsShortened, profile})
+  return json({profile})
 }
 
 export const meta: MetaFunction = () => {
@@ -25,67 +14,40 @@ export const meta: MetaFunction = () => {
     {title: "It's Skiddle! 👋"},
     {
       name: 'description',
-      content:
-        'bluesky, generative artwork, machine learning, decentralized social media',
+      content: 'javascript, ATProto, decentralized social media',
     },
   ]
 }
 
 export default function Index() {
-  const {posts, profile} = useLoaderData<{
-    posts: WhtwndBlogEntryView[]
+  const {profile} = useLoaderData<{
     profile: AppBskyActorDefs.ProfileViewDetailed
   }>()
 
   return (
-    <div className="container flex flex-col mx-auto pt-10 md:pt-20 pb-20 gap-10">
-      <div className="flex-col text-center">
-        <div className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-20 pb-4 md:pb-8">
+    <div className="flex-auto min-w-0 mt-6 flex flex-col">
+      <section className="mb-16">
+        <div className="flex flex-col md:flex-row items-start gap-8 mb-8">
           {profile ? (
             <img
-              className="rounded-full w-32 h-32"
+              className="rounded-full w-24 h-24"
               src={profile.avatar}
               alt="Skiddle's avatar"
             />
           ) : (
-            <div className="w-32 h-32 bg-gray-300 rounded-full"></div>
+            <div className="w-24 h-24 bg-neutral-200 dark:bg-neutral-800 rounded-full"></div>
           )}
-          <h1 className="text-5xl md:text-6xl font-bold">It's Skiddle! 👋</h1>
+          <div>
+            <h1 className="text-2xl font-semibold tracking-tighter mb-4">Skiddle</h1>
+            <p className="mb-4 text-neutral-800 dark:text-neutral-200">
+              Building for the decentralized web. Currently working on ATProto and exploring the future of social networks.
+            </p>
+            <p className="text-neutral-800 dark:text-neutral-200">
+              Passionate about JavaScript, open protocols, and creating better information ecosystems.
+            </p>
+          </div>
         </div>
-        <p className="text-2xl text-300">javascript, ATProto, decentralized social media</p>
-      </div>
-      <div className="flex flex-col gap-4">
-        <h2 className="text-3xl font-bold">blog posts</h2>
-        <ul className="list-none">
-          {posts
-            ?.sort(
-              (a, b) =>
-                new Date(b.createdAt).getTime() -
-                new Date(a.createdAt).getTime(),
-            )
-            .map(post => <PostItem post={post} key={post.rkey} />)}
-        </ul>
-      </div>
+      </section>
     </div>
-  )
-}
-
-function PostItem({post}: {post: WhtwndBlogEntryView}) {
-  return (
-    <li>
-      <div className="flex">
-        <p>
-          {new Date(post.createdAt).toLocaleDateString('en-US', {
-            year: '2-digit',
-            month: '2-digit',
-            day: '2-digit',
-          })}
-          &nbsp;&nbsp;&mdash;&nbsp;&nbsp;
-        </p>
-        <a className="font-bold hover:underline" href={`/posts/${post.rkey}`}>
-          <h3 className="text-xl"> {post.title}</h3>
-        </a>
-      </div>
-    </li>
   )
 }

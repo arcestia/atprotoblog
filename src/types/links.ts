@@ -7,7 +7,7 @@ export interface ExternalLink {
 }
 
 export interface BlogPost {
-  type: 'blog'
+  type: 'atprotoblog'
   title: string
   url: string
   date: string
