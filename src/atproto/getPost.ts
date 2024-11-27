@@ -1,5 +1,5 @@
 import {atpAgent} from './agent.js'
-import {WhtwndBlogEntryRecord, WhtwndBlogEntryView} from '../types'
+import {WhtwndBlogEntryRecord, WhtwndBlogEntryView} from '../types/whtwnd'
 import {whtwndBlogEntryRecordToView} from './dataToView'
 import {getCachedPost, setCachedPost} from '../redis/redis'
 

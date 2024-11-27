@@ -1,11 +1,11 @@
 import React from 'react'
-import {useLoaderData} from '@remix-run/react'
-import Markdown, {Components} from 'react-markdown'
-import {WhtwndBlogEntryView} from '../../types'
-import {getPost, getProfile} from '../../atproto'
 import {json, LoaderFunctionArgs, MetaFunction} from '@remix-run/node'
-import {Link} from '../components/link'
+import {getPost, getProfile} from '../../atproto'
+import {useLoaderData} from '@remix-run/react'
+import {WhtwndBlogEntryView} from '../../types/whtwnd'
 import {AppBskyActorDefs} from '@atproto/api'
+import Markdown, {Components} from 'react-markdown'
+import {Link} from '../components/link'
 
 export const loader = async ({params}: LoaderFunctionArgs) => {
   const {rkey} = params

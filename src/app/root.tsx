@@ -54,6 +54,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   <NavLink href="/" selected={location.pathname === '/'}>
                     Home
                   </NavLink>
+                  <NavLink href="/writing" selected={location.pathname === '/writing'}>
+                    Writing
+                  </NavLink>
                   <NavLink href="/about" selected={location.pathname === '/about'}>
                     About
                   </NavLink>

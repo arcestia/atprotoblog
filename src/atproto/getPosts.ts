@@ -1,6 +1,6 @@
 import {atpAgent} from './agent.js'
 import {whtwndBlogEntryRecordToView} from './dataToView'
-import {WhtwndBlogEntryRecord, WhtwndBlogEntryView} from '../types'
+import {WhtwndBlogEntryRecord, WhtwndBlogEntryView} from '../types/whtwnd'
 import {getCachedPosts, setCachedPosts} from '../redis/redis'
 
 export const getPosts = async (

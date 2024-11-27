@@ -1,5 +1,5 @@
 import { AppBskyActorDefs } from '@atproto/api'
-import { WhtwndBlogEntryView } from '../types'
+import { WhtwndBlogEntryView } from '../types/whtwnd'
 import Redis from 'ioredis'
 
 // Redis configuration

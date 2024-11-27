@@ -2,7 +2,7 @@ import React from 'react'
 import {json, MetaFunction} from '@remix-run/node'
 import {getPosts, getProfile} from '../../atproto'
 import {useLoaderData} from '@remix-run/react'
-import {WhtwndBlogEntryView} from '../../types'
+import {WhtwndBlogEntryView} from '../../types/whtwnd'
 import {AppBskyActorDefs} from '@atproto/api'
 import Markdown from 'react-markdown'
 
