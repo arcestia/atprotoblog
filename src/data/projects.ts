@@ -3,6 +3,7 @@ export interface Project {
   description: string;
   url: string;
   tags: string[];
+  languages: string[];
 }
 
 export const projects: Project[] = [
@@ -11,11 +12,27 @@ export const projects: Project[] = [
     description: 'A decentralized blogging platform built with ATProto, showcasing the future of social content.',
     url: 'https://github.com/arcestia/atprotoblog',
     tags: ['TypeScript', 'ATProto', 'React', 'Remix'],
+    languages: ['typescript', 'react']
   },
   {
-    name: 'PowerYourself',
-    description: 'A personal development and learning efficiency platform to help people maximize their potential.',
-    url: 'https://medium.com/catatan-arcestia/mengenali-diri-untuk-memaksimalkan-efisiensi-belajar-poweryourself-67abe80f8cbc',
-    tags: ['Personal Development', 'Learning', 'Self-Improvement'],
+    name: 'localizer.js',
+    description: 'Native JavaScript plugin for multilingual Web applications and websites.',
+    url: 'https://github.com/SinauDev/localizer.js',
+    tags: ['TypeScript', 'Open-Source'],
+    languages: ['typescript', 'javascript']
+  },
+  {
+    name: 'Klasemate',
+    description: 'Klasemate Open Source discussion board (Forum) Software.',
+    url: 'https://github.com/arcestiaishere/klasemate',
+    tags: ['PHP', 'Native', 'Self-Learning', 'Open-Source'],
+    languages: ['php', 'mysql']
+  },
+  {
+    name: 'CheckDomain',
+    description: 'Check Domain Blocked on Trust+ by Kominfo.',
+    url: 'https://github.com/Skiddle-ID/checkdomain',
+    tags: ['API', 'DNS-Blocking', 'Blocklist', 'Censorship'],
+    languages: ['javascript']
   },
 ];

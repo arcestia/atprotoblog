@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBluesky, faGithub, faMedium } from '@fortawesome/free-brands-svg-icons';
+import { faBluesky, faGithub, faMedium, faFacebook, faInstagram, faXTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faRss } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
@@ -24,6 +24,21 @@ export const socialLinks: SocialLink[] = [
     name: 'Medium',
     url: 'https://medium.com/@arcestia',
     icon: faMedium,
+  },
+  {
+    name: 'Facebook',
+    url: 'https://www.facebook.com/skiddle.id/',
+    icon: faFacebook,
+  },
+  {
+    name: 'Instagram',
+    url: 'https://www.instagram.com/skiddle.id/',
+    icon: faInstagram,
+  },
+  {
+    name: 'X',
+    url: 'https://x.com/skiddleid',
+    icon: faXTwitter,
   },
   {
     name: 'RSS Feed',

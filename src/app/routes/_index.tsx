@@ -12,6 +12,7 @@ import { projects } from '../../data/projects';
 import { getPosts } from '../../atproto';
 import { externalLinks } from '../../data/external-links';
 import { fetchMediumFeed } from '../../utils/fetchMediumFeed';
+import { TypingText } from '../components/typing-text';
 
 export const loader = async () => {
   const profile = await getProfile()
@@ -61,26 +62,44 @@ export default function Index() {
   return (
     <div className="flex-auto min-w-0 flex flex-col">
       <main className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
-        <section className="mb-16">
-          <div className="flex flex-col md:flex-row items-start gap-8 mb-8">
-            {profile ? (
-              <img
-                className="rounded-full w-24 h-24"
-                src={profile.avatar}
-                alt="Skiddle's avatar"
-              />
-            ) : (
-              <div className="w-24 h-24 bg-neutral-200 dark:bg-neutral-800 rounded-full"></div>
-            )}
-            <div>
-              <h1 className="text-2xl font-semibold tracking-tighter mb-4">Skiddle</h1>
-              <p className="mb-4 text-neutral-800 dark:text-neutral-200">
-                I'm always interested in connecting with fellow developers, technology enthusiasts, and anyone interested in decentralized social media. Feel free to reach out through any of the platforms below.
-              </p>
-              <p className="text-neutral-800 dark:text-neutral-200">
-                Passionate about JavaScript, open protocols, and creating better information ecosystems.
-              </p>
-            </div>
+        <section className="hero-wrapper mb-16">
+          <header className="hero">
+            <h1 className="text-4xl font-bold mb-4">Hey, I'm Skiddle! 👋</h1>
+            <TypingText 
+              lines={[
+                "I'm a software developer",
+                "passionate about JavaScript and open protocols,",
+                "creating better information ecosystems."
+              ]}
+              className="hero-description text-lg mb-4"
+            />
+            <TypingText 
+              lines={[
+                "Check out my writings, explore my open-source projects,",
+                "or learn more about what I'm working on."
+              ]}
+              className="hero-description text-lg"
+              startDelay={2.4}
+            >
+              {(line, index) => {
+                if (index === 0) {
+                  return (
+                    <>
+                      Check out my <Link to="/writing" className="text-accent-blue hover:underline">writings</Link>, 
+                      explore my <a href="https://github.com/arcestia" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">open-source projects</a>,
+                    </>
+                  );
+                }
+                return line;
+              }}
+            </TypingText>
+          </header>
+          <div className="decoration">
+            <img
+              className="image hero-image"
+              src={profile?.avatar}
+              alt="Skiddle's avatar"
+            />
           </div>
         </section>
         {latestWritings.length > 0 && (
@@ -130,11 +149,21 @@ export default function Index() {
                 <p className="text-neutral-800 dark:text-neutral-200 mb-4">
                   {project.description}
                 </p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.languages.map((lang) => (
+                    <img
+                      key={lang}
+                      src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${lang}/${lang}-original.svg`}
+                      alt={`${lang} icon`}
+                      className="w-6 h-6"
+                    />
+                  ))}
+                </div>
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1 text-sm text-neutral-700 dark:text-neutral-300 bg-neutral-100 dark:bg-neutral-900 rounded-full"
+                      className="project-tag"
                     >
                       {tag}
                     </span>
@@ -145,17 +174,21 @@ export default function Index() {
           </div>
         </section>
         <section className="mb-16">
-          <h2 className="text-2xl font-bold mb-4">Connect with Me</h2>
-          <div className="flex space-x-4">
+          <h2 className="text-2xl font-bold mb-4">Connect</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
             {socialLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-secondary hover:text-primary transition-colors"
+                className="flex items-center p-2.5 bg-tertiary rounded-lg hover:bg-secondary transition-colors duration-200 group"
               >
-                <FontAwesomeIcon icon={link.icon} className="w-5 h-5" />
+                <FontAwesomeIcon 
+                  icon={link.icon} 
+                  className="w-5 h-5 text-secondary group-hover:text-primary transition-colors" 
+                />
+                <span className="ml-2 text-sm text-secondary group-hover:text-primary transition-colors">{link.name}</span>
               </a>
             ))}
           </div>
