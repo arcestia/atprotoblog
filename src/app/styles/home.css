@@ -1,0 +1,90 @@
+.segment {
+  margin: 2rem 0;
+}
+
+.home-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.home-heading .title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.home-heading .button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  color: var(--text-primary);
+  border: 1px solid var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+.home-heading .button:hover {
+  background: var(--text-primary);
+  color: var(--bg-main);
+}
+
+.posts.newspaper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.post {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.post:hover .post-title {
+  text-decoration: underline;
+}
+
+.post-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.post-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.post time {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.new-post {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.new-post-pill {
+  background: var(--accent-yellow);
+  color: var(--bg-main);
+  font-weight: bold;
+  padding: 0.1rem 0.5rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+}
+
+:root[class~="dark"] .new-post-pill {
+  background: var(--accent-yellow);
+  color: var(--bg-main);
+}
+
+:root[class~="dark"] .post time {
+  color: var(--text-secondary);
+  font-weight: 500;
+}

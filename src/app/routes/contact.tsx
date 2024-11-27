@@ -3,6 +3,7 @@ import {MetaFunction} from '@remix-run/node'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBluesky, faGithub } from '@fortawesome/free-brands-svg-icons'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { faMedium } from '@fortawesome/free-brands-svg-icons'
 
 export const meta: MetaFunction = () => {
   return [
@@ -27,6 +28,12 @@ export default function Contact() {
       username: '@arcestia',
       url: 'https://github.com/arcestia',
       icon: <FontAwesomeIcon icon={faGithub} className="w-5 h-5" />,
+    },
+    {
+      name: 'Medium',
+      username: '@arcestia',
+      url: 'https://medium.com/@arcestia',
+      icon: <FontAwesomeIcon icon={faMedium} className="w-5 h-5" />,
     },
   ]
 
