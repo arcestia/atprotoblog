@@ -24,7 +24,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^9.0.1",
-    "react-router-dom": "^6.21.3"
+    "react-router-dom": "^6.21.3",
+    "rss-parser": "^3.13.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.0.2",

@@ -1,6 +1,8 @@
 import { LoaderFunction } from '@remix-run/node'
 import { getPosts } from '../../atproto'
 import { getProfile } from '../../atproto'
+import { externalLinks } from '../../data/external-links';
+import { fetchMediumFeed } from '../../utils/fetchMediumFeed';
 
 // Function to escape special characters in XML
 function escapeXml(unsafe: string): string {
@@ -19,22 +21,15 @@ function escapeXml(unsafe: string): string {
 export const loader: LoaderFunction = async ({ request }) => {
   const posts = await getPosts(undefined)
   const profile = await getProfile()
-  const externalLinks = [
-    // Add external links here
-    // Example:
-    // {
-    //   title: 'Example External Link',
-    //   type: 'external',
-    //   url: 'https://example.com',
-    //   date: new Date('2022-01-01T00:00:00.000Z')
-    // }
-  ]
 
   // Filter out draft posts
   const postsFiltered = posts.filter(p => !p.content?.startsWith('NOT_LIVE'))
 
+  // Fetch Medium links
+  const mediumLinks = await fetchMediumFeed();
+
   // Combine blog posts and external links
-  const allItems = [...postsFiltered, ...externalLinks]
+  const allItems = [...postsFiltered, ...externalLinks, ...mediumLinks]
 
   // Create RSS feed
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
@@ -45,7 +40,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 <link>${escapeXml(new URL(request.url).origin)}</link>
 ${allItems.map(item => `
 <item>
-<title>${escapeXml(item.title)}</title>
+<title>${escapeXml(item.title + (item.type === 'external' ? ` - ${item.source}` : ''))}</title>
 <description><![CDATA[${item.type === 'external' ? '' : item.content}]]></description>
 <pubDate>${new Date(item.date || item.createdAt).toUTCString()}</pubDate>
 <link>${escapeXml(item.url || `${new URL(request.url).origin}/posts/${item.rkey}`)}</link>

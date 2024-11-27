@@ -7,6 +7,7 @@ import { AppBskyActorDefs } from '@atproto/api'
 import { Link } from '../components/link'
 import { externalLinks } from '../../data/external-links'
 import { WritingItem, BlogPost, ExternalLink } from '../../types/links'
+import { fetchMediumFeed } from '../../utils/fetchMediumFeed';
 
 export const meta: MetaFunction = () => {
   return [
@@ -32,10 +33,13 @@ export const loader = async () => {
       rkey: post.rkey,
     }))
 
+  const mediumLinks = await fetchMediumFeed();
+
   // Combine blog posts and external links, then sort by date
   const allItems: WritingItem[] = [
     ...postsFiltered,
-    ...externalLinks
+    ...externalLinks,
+    ...mediumLinks
   ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
   console.log('All items:', allItems) // Debug log
