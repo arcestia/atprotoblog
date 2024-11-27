@@ -1,6 +1,8 @@
 import { LoaderFunction } from '@remix-run/node'
 import { getPosts } from '../../atproto'
 import { getProfile } from '../../atproto'
+import { externalLinks } from '../../data/external-links';
+import { fetchMediumFeed } from '../../utils/fetchMediumFeed';
 
 // Function to escape special characters in XML
 function escapeXml(unsafe: string): string {
@@ -19,9 +21,15 @@ function escapeXml(unsafe: string): string {
 export const loader: LoaderFunction = async ({ request }) => {
   const posts = await getPosts(undefined)
   const profile = await getProfile()
-  
+
   // Filter out draft posts
   const postsFiltered = posts.filter(p => !p.content?.startsWith('NOT_LIVE'))
+
+  // Fetch Medium links
+  const mediumLinks = await fetchMediumFeed();
+
+  // Combine blog posts and external links
+  const allItems = [...postsFiltered, ...externalLinks, ...mediumLinks]
 
   // Create RSS feed
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
@@ -30,13 +38,13 @@ export const loader: LoaderFunction = async ({ request }) => {
 <title>${escapeXml(profile.displayName)}</title>
 <description>${escapeXml(profile.description || `Personal Blog of ${profile.displayName}`)}</description>
 <link>${escapeXml(new URL(request.url).origin)}</link>
-${postsFiltered.map(post => `
+${allItems.map(item => `
 <item>
-<title>${escapeXml(post.title)}</title>
-<description><![CDATA[${post.content}]]></description>
-<pubDate>${new Date(post.createdAt).toUTCString()}</pubDate>
-<link>${escapeXml(`${new URL(request.url).origin}/posts/${post.rkey}`)}</link>
-<guid isPermaLink="true">${escapeXml(`${new URL(request.url).origin}/posts/${post.rkey}`)}</guid>
+<title>${escapeXml(item.title + (item.type === 'external' ? ` - ${item.source}` : ''))}</title>
+<description><![CDATA[${item.type === 'external' ? '' : item.content}]]></description>
+<pubDate>${new Date(item.date || item.createdAt).toUTCString()}</pubDate>
+<link>${escapeXml(item.url || `${new URL(request.url).origin}/posts/${item.rkey}`)}</link>
+<guid isPermaLink="true">${escapeXml(item.url || `${new URL(request.url).origin}/posts/${item.rkey}`)}</guid>
 </item>`).join('\n')}
 </channel>
 </rss>`

@@ -1,4 +1,4 @@
-import {WhtwndBlogEntryRecord, WhtwndBlogEntryView} from '../types'
+import {WhtwndBlogEntryRecord, WhtwndBlogEntryView} from '../types/whtwnd'
 import {uriToRkey} from './uriToRkey'
 
 export const whtwndBlogEntryRecordToView = ({

@@ -1,11 +1,11 @@
 import React from 'react'
-import {useLoaderData} from '@remix-run/react'
-import Markdown, {Components} from 'react-markdown'
-import {WhtwndBlogEntryView} from '../../types'
-import {getPost, getProfile} from '../../atproto'
 import {json, LoaderFunctionArgs, MetaFunction} from '@remix-run/node'
-import {Link} from '../components/link'
+import {getPost, getProfile} from '../../atproto'
+import {useLoaderData} from '@remix-run/react'
+import {WhtwndBlogEntryView} from '../../types/whtwnd'
 import {AppBskyActorDefs} from '@atproto/api'
+import Markdown, {Components} from 'react-markdown'
+import {Link} from '../components/link'
 
 export const loader = async ({params}: LoaderFunctionArgs) => {
   const {rkey} = params
@@ -16,7 +16,7 @@ export const loader = async ({params}: LoaderFunctionArgs) => {
 
 export const meta: MetaFunction<typeof loader> = ({data}) => {
   return [
-    {title: `${data?.post.title} | Hailey's Cool Site`},
+    {title: `${data?.post.title} | Skiddle's Blog`},
     {
       name: 'description',
       content: `${data?.post.content?.split(' ').slice(0, 100).join(' ')}...`,
@@ -54,7 +54,7 @@ export default function Posts() {
       <div className="flex flex-col text-center gap-4">
         <h1 className="text-5xl md:text-6xl font-bold">{post.title}</h1>
         <span className="text-md italic text-300">
-          Poorly written by {profile.displayName} on{' '}
+          Written by {profile.displayName} on{' '}
           {new Date(post.createdAt).toLocaleDateString(undefined, {
             year: 'numeric',
             month: 'long',

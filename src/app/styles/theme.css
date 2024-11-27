@@ -6,7 +6,7 @@
   --bg-tertiary: #f1f5f9;
 
   /* Text colors */
-  --text-primary: #0f172a;
+  --text-color: #333;
   --text-secondary: #334155;
   --text-tertiary: #64748b;
 
@@ -25,6 +25,7 @@
   --header-bg: rgba(248, 250, 252, 0.8);
   --card-bg: #ffffff;
   --footer-bg: #f8fafc;
+  --bg-color: #fff;
 }
 
 /* Dark Theme */
@@ -35,7 +36,7 @@
   --bg-tertiary: #1e293b;
 
   /* Text colors */
-  --text-primary: #f8fafc;
+  --text-color: #fff;
   --text-secondary: #e2e8f0;
   --text-tertiary: #94a3b8;
 
@@ -54,6 +55,7 @@
   --header-bg: rgba(26, 36, 51, 0.8);
   --card-bg: #1a2433;
   --footer-bg: #1a2433;
+  --bg-color: #1a1a1a;
 }
 
 /* Utility classes for themes */
@@ -63,8 +65,9 @@
 .bg-card { background-color: var(--card-bg); }
 .bg-header { background-color: var(--header-bg); }
 .bg-footer { background-color: var(--footer-bg); }
+.bg-color { background-color: var(--bg-color); }
 
-.text-primary { color: var(--text-primary); }
+.text-color { color: var(--text-color); }
 .text-secondary { color: var(--text-secondary); }
 .text-tertiary { color: var(--text-tertiary); }
 
