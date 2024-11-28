@@ -7,7 +7,8 @@ import { AppBskyActorDefs } from '@atproto/api'
 import { Link } from '../components/link'
 import { externalLinks } from '../../data/external-links'
 import { WritingItem, BlogPost, ExternalLink } from '../../types/links'
-import { fetchMediumFeed } from '../../utils/fetchMediumFeed';
+import { fetchMediumFeed } from '../../utils/fetchMediumFeed'
+import { getLocalPosts } from '../../utils/getLocalPosts'
 
 export const meta: MetaFunction = () => {
   return [
@@ -20,8 +21,11 @@ export const meta: MetaFunction = () => {
 }
 
 export const loader = async () => {
-  const posts = await getPosts(undefined)
-  const profile = await getProfile()
+  const [posts, profile, localPosts] = await Promise.all([
+    getPosts(undefined),
+    getProfile(),
+    getLocalPosts()
+  ])
 
   const postsFiltered = posts
     .filter(p => !p.content?.startsWith('NOT_LIVE'))
@@ -38,17 +42,20 @@ export const loader = async () => {
   // Combine blog posts and external links, then sort by date
   const allItems: WritingItem[] = [
     ...postsFiltered,
+    ...localPosts.map(post => ({
+      ...post,
+      url: `/blog/${post.year}/${post.slug}`
+    })),
     ...externalLinks,
     ...mediumLinks
   ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
-  console.log('All items:', allItems) // Debug log
-
   return json({ items: allItems, profile })
 }
 
-function WritingItemCard({ item }: { item: WritingItem }) {
+function WritingItemCard({ item, isNew }: { item: WritingItem; isNew?: boolean }) {
   const isExternal = item.type === 'external'
+  const isLocal = item.type === 'local'
   
   return (
     <Link 
@@ -57,18 +64,21 @@ function WritingItemCard({ item }: { item: WritingItem }) {
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener noreferrer" : undefined}
     >
-      <div className="w-full flex flex-row space-x-2">
-        <p className="text-secondary w-[150px] tabular-nums">
-          {new Date(item.date).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-          })}
-        </p>
-        <div className="flex flex-col w-full">
+      <div className="w-full flex flex-row justify-between items-center">
+        <div className="flex flex-col">
           <p className="text-primary tracking-tight">{item.title}</p>
           <p className="text-secondary text-sm italic">
-            {isExternal ? (item as ExternalLink).source : 'Atprotoblog'}
+            {isExternal ? (item as ExternalLink).source : isLocal ? 'Local Blog' : 'Atprotoblog'}
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <p className={`text-secondary tabular-nums text-right ${isNew ? 'new-post' : ''}`}>
+            {new Date(item.date).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric',
+            })}
+            {isNew && <div className="new-post-pill">New!</div>}
           </p>
         </div>
       </div>
@@ -93,7 +103,11 @@ export default function Writing() {
 
       <div className="flex flex-col">
         {items.map((item, index) => (
-          <WritingItemCard key={item.type === 'atprotoblog' ? item.rkey : `external-${index}`} item={item} />
+          <WritingItemCard 
+            key={item.type === 'atprotoblog' ? item.rkey : `${item.type}-${index}`} 
+            item={item}
+            isNew={index === 0}
+          />
         ))}
       </div>
     </div>

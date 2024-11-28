@@ -3,21 +3,25 @@ import {json, MetaFunction} from '@remix-run/node'
 import {useLoaderData, NavLink, Link} from '@remix-run/react'
 import {getProfile} from '../../atproto'
 import {AppBskyActorDefs} from '@atproto/api'
-import { ThemeSwitcher } from '../components/theme-switcher';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBluesky, faGithub, faMedium } from '@fortawesome/free-brands-svg-icons';
-import { faRss } from '@fortawesome/free-solid-svg-icons';
-import { socialLinks } from '../../data/social-links';
-import { projects } from '../../data/projects';
-import { getPosts } from '../../atproto';
-import { externalLinks } from '../../data/external-links';
-import { fetchMediumFeed } from '../../utils/fetchMediumFeed';
-import { TypingText } from '../components/typing-text';
+import { ThemeSwitcher } from '../components/theme-switcher'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBluesky, faGithub, faMedium } from '@fortawesome/free-brands-svg-icons'
+import { faRss } from '@fortawesome/free-solid-svg-icons'
+import { socialLinks } from '../../data/social-links'
+import { projects } from '../../data/projects'
+import { getPosts } from '../../atproto'
+import { externalLinks } from '../../data/external-links'
+import { fetchMediumFeed } from '../../utils/fetchMediumFeed'
+import { TypingText } from '../components/typing-text'
+import { getLocalPosts } from '../../utils/getLocalPosts'
 
 export const loader = async () => {
-  const profile = await getProfile()
-  const posts = await getPosts(undefined);
-  const mediumLinks = await fetchMediumFeed();
+  const [profile, posts, mediumLinks, localPosts] = await Promise.all([
+    getProfile(),
+    getPosts(undefined),
+    fetchMediumFeed(),
+    getLocalPosts()
+  ])
 
   // Filter out draft posts
   const postsFiltered = posts
@@ -28,24 +32,29 @@ export const loader = async () => {
       url: `/posts/${post.rkey}`,
       date: post.createdAt,
       rkey: post.rkey,
-    }));
+    }))
 
   // Combine all writing items and sort by date
   const allItems = [
     ...postsFiltered,
+    ...localPosts.map(post => ({
+      ...post,
+      url: `/blog/${post.year}/${post.slug}`,
+      type: 'local'
+    })),
     ...externalLinks,
     ...mediumLinks
-  ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
   // Get only the latest 5 items
-  const latestWritings = allItems.slice(0, 5);
+  const latestWritings = allItems.slice(0, 5)
 
   return json({ profile, latestWritings })
 }
 
 export const meta: MetaFunction = () => {
   return [
-    {title: "It's Skiddle! 👋"},
+    {title: "It's Skiddle! "},
     {
       name: 'description',
       content: 'javascript, ATProto, decentralized social media',
@@ -113,6 +122,8 @@ export default function Index() {
             <div className="posts newspaper">
               {latestWritings.map((writing, index) => {
                 const isNew = index === 0;
+                const isExternal = writing.type === 'external';
+                const isLocal = writing.type === 'local';
                 const date = new Date(writing.date);
                 const formattedDate = date.toLocaleDateString('en-US', { 
                   year: 'numeric',
@@ -128,6 +139,9 @@ export default function Index() {
                         {isNew && <div className="new-post-pill">New!</div>}
                       </time>
                     </div>
+                    <p className="text-secondary text-sm italic">
+                      {isExternal ? writing.source : isLocal ? 'Local Blog' : 'Atprotoblog'}
+                    </p>
                   </Link>
                 );
               })}
@@ -193,13 +207,6 @@ export default function Index() {
             ))}
           </div>
         </section>
-        <footer className="bg-neutral-100 dark:bg-neutral-800 py-6">
-          <div className="container mx-auto px-4">
-            <p className="text-center text-neutral-600 dark:text-neutral-400">
-              2023 Skiddle's Blog. All rights reserved.
-            </p>
-          </div>
-        </footer>
       </main>
     </div>
   )

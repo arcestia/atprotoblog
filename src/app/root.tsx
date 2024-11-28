@@ -17,12 +17,14 @@ import { faRss } from '@fortawesome/free-solid-svg-icons'
 import tailwindStyles from './tailwind.css'
 import themeStyles from './styles/theme.css'
 import homeStyles from './styles/home.css'
+import blogStyles from './styles/blog.css'
 import { ThemeSwitcher } from './components/theme-switcher'
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: tailwindStyles },
   { rel: 'stylesheet', href: themeStyles },
   { rel: 'stylesheet', href: homeStyles },
+  { rel: 'stylesheet', href: blogStyles },
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
   { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'anonymous' },
   {
@@ -86,6 +88,24 @@ export default function App() {
         <main className="flex-1">
           <Outlet />
         </main>
+        <footer className="bg-neutral-100 dark:bg-neutral-800 py-8">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-2 text-sm text-neutral-600 dark:text-neutral-400">
+              <span>&copy; {new Date().getFullYear()} Laurensius Jeffrey Chandra</span>
+              <span className="hidden sm:inline">•</span>
+              <span>
+                Built with{' '}
+                <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">
+                  React
+                </a>
+                {' '}and{' '}
+                <a href="https://atproto.com/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">
+                  AT Protocol
+                </a>
+              </span>
+            </div>
+          </div>
+        </footer>
         <ScrollRestoration />
         <Scripts />
       </body>
