@@ -36,6 +36,7 @@ COPY --from=builder /app/.yarnrc.yml ./.yarnrc.yml
 COPY --from=builder /app/.npmrc ./.npmrc
 COPY --from=builder /app/build ./build
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/posts ./posts
 COPY --from=builder /app/node_modules ./node_modules
 
 # Verify build files exist
