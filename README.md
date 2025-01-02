@@ -111,6 +111,51 @@ You can deploy `atprotoblog` using Docker for a more streamlined and isolated en
 
 This approach will help in quickly deploying the application, allowing you to manage it effectively with Docker's features like container restarts and isolated environments.
 
+## PM2 Deployment
+
+As an alternative to Docker deployment, you can use PM2 to run the application:
+
+### Prerequisites
+- Node.js 18 or later
+- Yarn package manager
+- PM2 (installed globally or as a project dependency)
+
+### Deployment Steps
+
+1. Install dependencies:
+```bash
+yarn install
+```
+
+2. Build the application:
+```bash
+yarn build
+```
+
+3. Start the application with PM2:
+```bash
+yarn start:pm2
+```
+
+### PM2 Management Commands
+
+- Stop the application: `yarn stop:pm2`
+- Reload the application: `yarn reload:pm2`
+- View logs: `pm2 logs atprotoblog`
+- Monitor: `pm2 monit`
+- List running apps: `pm2 list`
+
+### Environment Variables
+
+Make sure to set up your environment variables before deploying. You can modify them in the `ecosystem.config.js` file:
+
+- `NODE_ENV`: Production environment
+- `ATP_SERVICE`: Your ATP service URL
+- `ATP_IDENTIFIER`: Your ATP identifier
+- `ATP_DID`: Your ATP DID
+- `REDIS_URL`: Redis connection URL
+- `PORT`: Application port (default: 3000)
+
 ## Related Project
 
 This project is based on [blug](https://github.com/haileyok/blug) by haileyok. I have made some modifications and Dockerized it to make deployment easier.
