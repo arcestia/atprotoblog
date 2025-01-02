@@ -7,6 +7,9 @@
     "build": "remix build",
     "dev": "remix dev",
     "start": "remix-serve build/index.js",
+    "start:pm2": "pm2 start ecosystem.config.js",
+    "stop:pm2": "pm2 stop ecosystem.config.js",
+    "reload:pm2": "pm2 reload ecosystem.config.js",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "typecheck": "tsc"
   },
@@ -22,6 +25,7 @@
     "framer-motion": "^11.11.17",
     "ioredis": "^5.3.2",
     "isbot": "^4.1.0",
+    "pm2": "^5.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^9.0.1",
