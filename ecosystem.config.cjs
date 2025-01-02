@@ -15,8 +15,11 @@ module.exports = {
         ATP_IDENTIFIER: 'skiddle.id',
         ATP_DID: 'did:plc:kbpcqituf5ku6xorxo2wzdee',
         REDIS_URL: 'redis://localhost:6379',
-        PORT: 3000
-      }
+        PORT: 8888
+      },
+      listen_timeout: 50000,
+      kill_timeout: 5000,
+      wait_ready: true
     }
   ]
 }
