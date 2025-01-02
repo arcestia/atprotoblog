@@ -1,8 +1,8 @@
-export default {
+module.exports = {
   apps: [
     {
       name: 'atprotoblog',
-      script: './node_modules/@remix-run/serve/dist/index.js',
+      script: 'remix-serve',
       args: 'build/index.js',
       instances: 'max',
       exec_mode: 'cluster',
