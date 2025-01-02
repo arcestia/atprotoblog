@@ -4,7 +4,7 @@ module.exports = {
       name: 'atprotoblog',
       script: 'remix-serve',
       args: 'build/index.js',
-      instances: 'max',
+      instances: 2,
       exec_mode: 'cluster',
       autorestart: true,
       watch: false,
@@ -18,8 +18,7 @@ module.exports = {
         PORT: 8888
       },
       listen_timeout: 50000,
-      kill_timeout: 5000,
-      wait_ready: true
+      kill_timeout: 5000
     }
   ]
 }
