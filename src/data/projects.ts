@@ -15,11 +15,11 @@ export const projects: Project[] = [
     languages: ['typescript', 'react']
   },
   {
-    name: 'localizer.js',
-    description: 'Native JavaScript plugin for multilingual Web applications and websites.',
-    url: 'https://github.com/SinauDev/localizer.js',
-    tags: ['TypeScript', 'Open-Source'],
-    languages: ['typescript', 'javascript']
+    name: 'shortlink',
+    description: 'A simple URL shortener service powered by Cloudflare Workers and Turso.',
+    url: 'https://github.com/arcestia/shortlink',
+    tags: ['Cloudflare', 'Shortlink', 'Turso', 'Honojs'],
+    languages: ['typescript']
   },
   {
     name: 'Klasemate',
