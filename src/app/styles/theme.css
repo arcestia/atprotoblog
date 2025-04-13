@@ -1,31 +1,31 @@
 /* Light Theme */
 :root {
   /* Core background colors */
-  --bg-main: #ffffff;
-  --bg-secondary: #f8fafc;
-  --bg-tertiary: #f1f5f9;
+  --bg-main: #e6eef5;
+  --bg-secondary: #d0dcea;
+  --bg-tertiary: #b8c9dd;
 
   /* Text colors */
-  --text-color: #333;
-  --text-secondary: #334155;
-  --text-tertiary: #64748b;
+  --text-color: #0f2b4c;
+  --text-secondary: #1a3a5f;
+  --text-tertiary: #3a5a7d;
 
   /* Border colors */
-  --border-light: #e2e8f0;
-  --border-medium: #cbd5e1;
+  --border-light: #a0b8d0;
+  --border-medium: #7a96b2;
 
   /* Accent colors */
-  --accent-blue: #2563eb;
+  --accent-blue: #1d4ed8;
   --accent-purple: #7c3aed;
   --accent-green: #059669;
   --accent-red: #dc2626;
   --accent-yellow: #ca8a04;
 
   /* Component specific */
-  --header-bg: rgba(248, 250, 252, 0.8);
+  --header-bg: rgba(208, 220, 234, 0.9);
   --card-bg: #ffffff;
-  --footer-bg: #f8fafc;
-  --bg-color: #fff;
+  --footer-bg: #d0dcea;
+  --bg-color: #e6eef5;
 }
 
 /* Dark Theme */
@@ -49,13 +49,13 @@
   --accent-purple: #8b5cf6;
   --accent-green: #10b981;
   --accent-red: #ef4444;
-  --accent-yellow: #f59e0b;
+  --accent-yellow: #fbbf24;
 
   /* Component specific */
   --header-bg: rgba(26, 36, 51, 0.8);
   --card-bg: #1a2433;
   --footer-bg: #1a2433;
-  --bg-color: #1a1a1a;
+  --bg-color: #151f2f;
 }
 
 /* Utility classes for themes */

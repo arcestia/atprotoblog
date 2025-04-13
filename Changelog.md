@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Created dedicated routes for Notes (/notes) and Tech Blog (/tech) with separate content lists
 - Added LocalPost type to support better type checking for local blog posts
 - Restored typing animation for the hero section text on the home page
+- Added topbar navigation with responsive design for mobile devices
+- Implemented theme toggling functionality with light/dark mode support
+- Added Bluesky icon to the topbar for quick access to Bluesky profile
+- Created dedicated Projects page to showcase all open-source projects
 
 ### Changed
 - Removed Redis cache dependency to enable deployment on Cloudflare Pages
@@ -39,3 +43,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed About Me button to use theme's accent blue color with proper styling
 - Improved date formatting across the site to show full dates (month name, day, and year)
 - Enhanced "New" label styling to use the theme's accent blue color for better visibility
+- Improved mobile responsiveness by hiding sidebar on small screens and showing topbar navigation
+- Removed site name from topbar for a cleaner navigation appearance
+- Aligned all navigation elements in the topbar to the right
+- Updated light theme colors to use a blue-ish color scheme for better visual consistency
+- Enhanced light theme contrast with darker blue tones for improved readability and visibility
+- Fixed theme implementation to properly use CSS variables throughout the application
+
+### Fixed
+- Corrected theme variable usage in root layout to ensure consistent styling across light and dark modes
+- Fixed footer link hover states to use theme accent colors
+- Improved theme color contrast for better accessibility
+- Updated button styling in footer to use theme variables consistently

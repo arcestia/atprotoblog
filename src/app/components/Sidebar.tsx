@@ -11,7 +11,7 @@ export function Sidebar() {
       <div className="p-5 flex flex-col h-full">
         <div className="mb-8">
           <Link to="/" className="text-xl font-bold hover:text-secondary transition-colors">
-            skiddle.id
+            Skiddle Blog
           </Link>
         </div>
 
