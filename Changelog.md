@@ -50,6 +50,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enhanced light theme contrast with darker blue tones for improved readability and visibility
 - Fixed theme implementation to properly use CSS variables throughout the application
 - Updated wrangler.toml with production environment variables for Cloudflare Pages deployment
+- Cleaned up PM2 ecosystem configuration by removing Redis dependency and simplifying deployment settings
+- Completely revised README.md with modern features, detailed deployment instructions, and improved documentation
+
+### Removed
+- Deleted PM2 ecosystem configuration file (ecosystem.config.cjs)
+- Removed PM2-related scripts from package.json
+- Removed PM2 dependency from package.json
+- Eliminated PM2 deployment instructions from README.md to focus exclusively on Cloudflare Pages deployment
 
 ### Fixed
 - Corrected theme variable usage in root layout to ensure consistent styling across light and dark modes

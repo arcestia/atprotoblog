@@ -1,6 +1,6 @@
-# Atprotoblog - An ATProtocol Blog
+# ATProtoBlog - A Modern Blog Built with AT Protocol
 
-A simple little blog that pulls posts from your PDS, using the `com.whtwnd.blog.entry` lexicon.
+A modern, responsive blog that pulls posts from your PDS (Personal Data Server) using the `com.whtwnd.blog.entry` lexicon, with support for local markdown posts.
 
 ```ts
 interface WhtwndBlogEntryRecord {
@@ -26,136 +26,105 @@ interface WhtwndBlogEntryView {
 }
 ```
 
+## Features
+
+- **Responsive Design**: Mobile-friendly layout with topbar navigation and sidebar for desktop
+- **Theme Support**: Light and dark mode with persistent user preference
+- **Multiple Content Types**: Support for AT Protocol posts and local markdown files
+- **Project Showcase**: Dedicated page to showcase your open-source projects
+- **Cloudflare Pages Integration**: Easy deployment to Cloudflare's global network
+
 ## Configuration
 
-Just a few things are needed in your `.env` file.
+Create a `.env.local` file with the following variables:
 
 ```shell
 ATP_SERVICE=https://pds.skiddle.id/
 ATP_IDENTIFIER=skiddle.id
 ATP_DID=did:plc:kbpcqituf5ku6xorxo2wzdee
+NODE_ENV=development
 ```
 
-- `ATP_SERVICE` is the URL of your PDS. It's probably hosted by Bluesky. Find it at [internect.info](https://internect.info).
-- `ATP_IDENTIFIER` is your handle. It's used to know which repo to get records from.
-- `ATP_DID` is...your DID. Again, find it at [internect.info](https://internect.info). Used to get your Bluesky profile (I use this just to get the already-hosted copy of your profile picture. You could rewrite this if you wanted to, would be faster too).
+- `ATP_SERVICE`: The URL of your PDS. Find it at [internect.info](https://internect.info)
+- `ATP_IDENTIFIER`: Your handle, used to determine which repo to get records from
+- `ATP_DID`: Your Decentralized Identifier, also found at [internect.info](https://internect.info)
+- `NODE_ENV`: Set to "development" for local development, "production" for deployment
 
 ## Development
 
-Just run the Vite server, you know, like usual?
+Run the development server:
 
 ```shell
-yarn run dev
+npm run dev
+# or
+yarn dev
 ```
 
-## Deployment
+The site will be available at [http://localhost:3000](http://localhost:3000).
 
-Make sure you have `dotenv-cli` installed.
+## Deployment with Cloudflare Pages
 
-```shell
-npm install -g dotenv-cli
-```
-
-Then build and serve.
-
-```shell
-yarn build
-yarn start
-```
-
-## Creating Posts
-
-There's various ways you could do this. I just use a Markdown editor and then manually save them with `createRecord`. You can also use the editor at [whtwnd's website](https://whtwnd.com/edit) to create them.
-
-## Deployment Using Docker
-
-You can deploy `atprotoblog` using Docker for a more streamlined and isolated environment. Here’s how:
-
-1. **Build the Docker Image**:
-
-   ```shell
-   docker build -t atprotoblog .
-   ```
-
-2. **Run the Container**:
-
-   To run the container and expose it on a specific port (e.g., port 3000):
-
-   ```shell
-   docker run -d -p 3000:3000 --name atprotoblog ghcr.io/arcestia/atprotoblog:latest
-   ```
-
-3. **Using Docker Compose**:
-
-   Alternatively, you can use Docker Compose for a more declarative setup. Create a `docker-compose.yml`:
-
-   ```yaml
-   version: '3.8'
-
-   services:
-     atprotoblog:
-       image: ghcr.io/arcestia/atprotoblog:latest
-       container_name: atprotoblog
-       ports:
-         - "3000:3000"
-       environment:
-         - NODE_ENV=production
-       restart: unless-stopped
-   ```
-
-   Then run:
-
-   ```shell
-   docker-compose up -d
-   ```
-
-This approach will help in quickly deploying the application, allowing you to manage it effectively with Docker's features like container restarts and isolated environments.
-
-## PM2 Deployment
-
-As an alternative to Docker deployment, you can use PM2 to run the application:
-
-### Prerequisites
-- Node.js 18 or later
-- Yarn package manager
-- PM2 (installed globally or as a project dependency)
+This project is configured for deployment on Cloudflare Pages, providing global CDN distribution, automatic HTTPS, and continuous deployment from GitHub.
 
 ### Deployment Steps
 
-1. Install dependencies:
-```bash
-yarn install
-```
+1. **Push your code to GitHub**:
+   ```shell
+   git add .
+   git commit -m "Prepare for Cloudflare Pages deployment"
+   git push origin main
+   ```
 
-2. Build the application:
-```bash
-yarn build
-```
+2. **Connect to Cloudflare Pages**:
+   - Log in to the [Cloudflare Dashboard](https://dash.cloudflare.com)
+   - Navigate to "Pages" and click "Create a project"
+   - Connect to your GitHub repository
 
-3. Start the application with PM2:
-```bash
-yarn start:pm2
-```
+3. **Configure build settings**:
+   - **Project name**: `atprotoblog` (or your preferred name)
+   - **Production branch**: `main`
+   - **Build command**: `npm run build`
+   - **Build output directory**: `build/client`
 
-### PM2 Management Commands
+4. **Set environment variables**:
+   - The necessary environment variables are already configured in `wrangler.toml`
+   - You can also set them in the Cloudflare dashboard:
+     - `ATP_SERVICE`: Your ATP service URL
+     - `ATP_IDENTIFIER`: Your ATP identifier
+     - `ATP_DID`: Your ATP DID
+     - `NODE_ENV`: Set to "production"
 
-- Stop the application: `yarn stop:pm2`
-- Reload the application: `yarn reload:pm2`
-- View logs: `pm2 logs atprotoblog`
-- Monitor: `pm2 monit`
-- List running apps: `pm2 list`
+5. **Deploy**:
+   - Click "Save and Deploy"
+   - Cloudflare will build and deploy your site
 
-### Environment Variables
+### Continuous Deployment
 
-Make sure to set up your environment variables before deploying. You can modify them in the `ecosystem.config.js` file:
+With GitHub integration, any future pushes to your main branch will automatically trigger a new deployment. You can also:
 
-- `NODE_ENV`: Production environment
-- `ATP_SERVICE`: Your ATP service URL
-- `ATP_IDENTIFIER`: Your ATP identifier
-- `ATP_DID`: Your ATP DID
-- `REDIS_URL`: Redis connection URL
-- `PORT`: Application port (default: 3000)
+- Set up preview deployments for pull requests
+- Configure deployment hooks for manual triggers
+- Set up branch deployments for testing
 
-## Related Project
+## Creating Content
 
-This project is based on [blug](https://github.com/haileyok/blug) by haileyok. I have made some modifications and Dockerized it to make deployment easier.
+### AT Protocol Posts
+
+You can create AT Protocol posts using:
+- A Markdown editor and manually save them with `createRecord`
+- The editor at [whtwnd's website](https://whtwnd.com/edit)
+
+### Local Markdown Posts
+
+Place markdown files in the appropriate directories:
+- `/content/blog/` for technical blog posts
+- `/content/notes/` for personal notes
+
+## Acknowledgments
+
+This project is based on [blug](https://github.com/haileyok/blug) by haileyok, with significant modifications including:
+- Responsive design with mobile support
+- Theme switching functionality
+- Local markdown content support
+- Cloudflare Pages deployment
+- Improved project structure and organization
