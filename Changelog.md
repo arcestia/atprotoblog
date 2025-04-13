@@ -68,3 +68,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated button styling in footer to use theme variables consistently
 - Fixed build process for Cloudflare Pages deployment by using direct path to Remix CLI
 - Resolved Cloudflare Pages deployment configuration by aligning wrangler.toml with the correct build command
+- Updated wrangler.toml to use correct build output directory (public/build) to match Remix configuration

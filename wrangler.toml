@@ -8,10 +8,9 @@ command = "node cloudflare-build.js"
 
 # Site configuration
 [site]
-bucket = "build/client"
+bucket = "public/build"
 
 # Pages specific configuration
-pages_build_output_dir = "build/client"
 
 # Environment variables for production
 [vars]
