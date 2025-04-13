@@ -8,7 +8,8 @@
     "dev": "remix dev",
     "start": "remix-serve build/index.js",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "pages:build": "node ./node_modules/@remix-run/dev/dist/cli.js build"
   },
   "dependencies": {
     "@atproto/api": "^0.12.2",
