@@ -80,13 +80,13 @@ export default function Index() {
             <TypingText
               lines={[
                 "Hey, I'm Skiddle!",
-                "I'm a software engineer, open-source creator, and former professional chef. I've been making websites since 1998 and writing on this blog for the past decade.",
-                "I enjoy weight lifting, reading sci-fi and fantasy, playing retro video games, and spending time with my partner and friends."
+                "I'm a software developer passionate about JavaScript and open protocols, creating better information ecosystems.",
+                "Check out my writings, explore my open-source projects, or learn more about what I'm working on."
               ]}
               className="mb-6"
               startDelay={0.2}
             >
-              {(line, i) => (
+              {(line: string, i: number) => (
                 i === 0 ? (
                   <h1 className="text-4xl font-bold mb-4">{line}</h1>
                 ) : (
@@ -94,21 +94,13 @@ export default function Index() {
                 )
               )}
             </TypingText>
-            <div className="flex gap-3">
+            <div className="flex gap-3 mt-4">
               <Link 
                 to="/about" 
-                className="inline-block px-4 py-2 bg-secondary text-white font-medium rounded hover:bg-secondary/90 transition-colors"
+                className="inline-block px-4 py-2 bg-[var(--accent-blue)] text-white font-medium rounded hover:opacity-90 transition-colors"
               >
                 About Me
               </Link>
-              <a 
-                href="https://bsky.app/profile/skiddle.id" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-block px-4 py-2 border border-secondary text-secondary font-medium rounded hover:bg-secondary/10 transition-colors"
-              >
-                Newsletter
-              </a>
             </div>
           </div>
           <div className="md:w-1/3 flex justify-center">
@@ -134,7 +126,8 @@ export default function Index() {
             const date = new Date(writing.date);
             const formattedDate = date.toLocaleDateString('en-US', { 
               year: 'numeric',
-              month: 'long'
+              month: 'long',
+              day: 'numeric'
             });
             const isNew = index === 0;
 
@@ -146,7 +139,7 @@ export default function Index() {
                   </Link>
                   <div className="text-sm text-300">
                     {formattedDate}
-                    {isNew && <span className="ml-2 px-2 py-0.5 bg-accent-blue text-white text-xs rounded-full">New</span>}
+                    {isNew && <span className="ml-2 px-2 py-0.5 bg-[var(--accent-blue)] text-white text-xs rounded-full">New</span>}
                   </div>
                 </div>
                 <div className="text-sm text-300">
@@ -171,7 +164,8 @@ export default function Index() {
             const date = new Date(post.date);
             const formattedDate = date.toLocaleDateString('en-US', { 
               year: 'numeric',
-              month: 'long'
+              month: 'long',
+              day: 'numeric'
             });
             const isNew = index === 0;
             
@@ -183,7 +177,7 @@ export default function Index() {
                   </Link>
                   <div className="text-sm text-300 flex items-center">
                     {formattedDate}
-                    {isNew && <span className="ml-2 px-2 py-0.5 bg-accent-blue text-white text-xs rounded-full">New</span>}
+                    {isNew && <span className="ml-2 px-2 py-0.5 bg-[var(--accent-blue)] text-white text-xs rounded-full">New</span>}
                   </div>
                 </div>
               </div>

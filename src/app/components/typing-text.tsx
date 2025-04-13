@@ -4,7 +4,7 @@ import { motion, useAnimationControls } from 'framer-motion';
 interface TypingTextProps {
   lines: string[];
   className?: string;
-  children?: React.ReactNode;
+  children?: (line: string, index: number) => React.ReactNode;
   startDelay?: number;
 }
 

@@ -67,10 +67,10 @@ function NoteItem({ item, isNew }: { item: WritingItem; isNew?: boolean }) {
           <p className={`text-secondary tabular-nums text-right ${isNew ? 'new-post' : ''}`}>
             {new Date(item.date).toLocaleDateString('en-US', {
               year: 'numeric',
-              month: 'short',
-              day: 'numeric',
+              month: 'long',
+              day: 'numeric'
             })}
-            {isNew && <div className="new-post-pill">New!</div>}
+            {isNew && <span className="ml-2 px-2 py-0.5 bg-[var(--accent-blue)] text-white text-xs rounded-full">New</span>}
           </p>
         </div>
       </div>

@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added comments section to local blog posts
 - Created dedicated routes for Notes (/notes) and Tech Blog (/tech) with separate content lists
 - Added LocalPost type to support better type checking for local blog posts
+- Restored typing animation for the hero section text on the home page
 
 ### Changed
 - Removed Redis cache dependency to enable deployment on Cloudflare Pages
@@ -33,3 +34,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated Donate link to point to GitHub Sponsors
 - Changed RSS feed link to point to /feed instead of /rss.xml
 - Simplified sidebar by removing Guides and Project Writeups sections
+- Updated hero section text with new professional introduction focused on software development and open protocols
+- Removed Newsletter button from hero section
+- Fixed About Me button to use theme's accent blue color with proper styling
+- Improved date formatting across the site to show full dates (month name, day, and year)
+- Enhanced "New" label styling to use the theme's accent blue color for better visibility
