@@ -6,7 +6,7 @@ compatibility_date = "2023-10-30"
 [build]
 command = "node cloudflare-build.js"
 
-# Output directory
+# Site configuration
 [site]
 bucket = "build/client"
 
