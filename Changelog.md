@@ -49,6 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated light theme colors to use a blue-ish color scheme for better visual consistency
 - Enhanced light theme contrast with darker blue tones for improved readability and visibility
 - Fixed theme implementation to properly use CSS variables throughout the application
+- Updated wrangler.toml with production environment variables for Cloudflare Pages deployment
 
 ### Fixed
 - Corrected theme variable usage in root layout to ensure consistent styling across light and dark modes

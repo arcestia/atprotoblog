@@ -10,7 +10,9 @@ command = "npm run build"
 [site]
 bucket = "build/client"
 
-# Environment variables (uncomment and update for production)
-# [vars]
-# ATP_DID = ""
-# ATP_IDENTIFIER = ""
+# Environment variables for production
+[vars]
+ATP_SERVICE = "https://pds.skiddle.id/"
+ATP_IDENTIFIER = "skiddle.id"
+ATP_DID = "did:plc:kbpcqituf5ku6xorxo2wzdee"
+NODE_ENV = "production"
