@@ -1,0 +1,12 @@
+[build]
+command = "node ./node_modules/@remix-run/dev/dist/cli.js build"
+output_directory = "build/client"
+
+[site]
+bucket = "build/client"
+
+[env.production]
+ATP_SERVICE = "https://pds.skiddle.id/"
+ATP_IDENTIFIER = "skiddle.id"
+ATP_DID = "did:plc:kbpcqituf5ku6xorxo2wzdee"
+NODE_ENV = "production"

@@ -4,7 +4,7 @@ compatibility_date = "2023-10-30"
 
 # Build configuration
 [build]
-command = "npm run pages:build"
+command = "node cloudflare-build.js"
 
 # Output directory
 [site]
