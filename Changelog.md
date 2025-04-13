@@ -7,8 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Comments section to blog posts using Utterances GitHub-based commenting system
+
 ### Changed
 - Removed Redis cache dependency to enable deployment on Cloudflare Pages
 - Modified API functions to work without caching
 - Updated deployment configuration for Cloudflare Pages
 - Removed Docker-related deployment files (Dockerfile and docker-compose.yml)
+- Simplified wrangler.toml configuration for Cloudflare Pages

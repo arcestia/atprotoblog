@@ -6,6 +6,7 @@ import {WhtwndBlogEntryView} from '../../types/whtwnd'
 import {AppBskyActorDefs} from '@atproto/api'
 import Markdown, {Components} from 'react-markdown'
 import {Link} from '../components/link'
+import {Comments} from '../components/Comments'
 
 export const loader = async ({params}: LoaderFunctionArgs) => {
   const {rkey} = params
@@ -39,6 +40,7 @@ export const meta: MetaFunction<typeof loader> = ({data}) => {
       : []),
   ]
 }
+
 export default function Posts() {
   const {post, profile} = useLoaderData<{
     post: WhtwndBlogEntryView
@@ -69,6 +71,9 @@ export default function Posts() {
           {post.content}
         </Markdown>
       </div>
+      
+      {/* Comments section */}
+      <Comments title={post.title} />
     </div>
   )
 }

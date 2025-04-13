@@ -2,23 +2,15 @@
 name = "atprotoblog"
 compatibility_date = "2023-10-30"
 
+# Build configuration
 [build]
 command = "npm run build"
-output_directory = "build/client"
 
-[build.environment]
-NODE_VERSION = "18"
-
+# Output directory
 [site]
 bucket = "build/client"
 
-[env.production]
-routes = [
-  { pattern = "/build/*", path = "/build/*" },
-  { pattern = "/*", script = "build/server/index.js" }
-]
-
-# Uncomment and update these environment variables for production
-# [env.production.vars]
+# Environment variables (uncomment and update for production)
+# [vars]
 # ATP_DID = ""
 # ATP_IDENTIFIER = ""
