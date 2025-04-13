@@ -1,18 +1,14 @@
 import React from 'react'
 import {json, MetaFunction} from '@remix-run/node'
-import {useLoaderData, NavLink, Link} from '@remix-run/react'
+import {useLoaderData, Link} from '@remix-run/react'
 import {getProfile} from '../../atproto'
 import {AppBskyActorDefs} from '@atproto/api'
-import { ThemeSwitcher } from '../components/theme-switcher'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBluesky, faGithub, faMedium } from '@fortawesome/free-brands-svg-icons'
-import { faRss } from '@fortawesome/free-solid-svg-icons'
-import { socialLinks } from '../../data/social-links'
+import { faBluesky, faGithub } from '@fortawesome/free-brands-svg-icons'
 import { projects } from '../../data/projects'
 import { getPosts } from '../../atproto'
 import { externalLinks } from '../../data/external-links'
 import { fetchMediumFeed } from '../../utils/fetchMediumFeed'
-import { TypingText } from '../components/typing-text'
 import { getLocalPosts } from '../../utils/getLocalPosts'
 
 export const loader = async () => {
@@ -46,10 +42,15 @@ export const loader = async () => {
     ...mediumLinks
   ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
-  // Get only the latest 5 items
+  // Get only the latest items for each section
   const latestWritings = allItems.slice(0, 5)
+  
+  // Filter tech blog posts (using local posts for tech blog)
+  const techBlogPosts = localPosts
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 3)
 
-  return json({ profile, latestWritings })
+  return json({ profile, latestWritings, techBlogPosts })
 }
 
 export const meta: MetaFunction = () => {
@@ -63,151 +64,168 @@ export const meta: MetaFunction = () => {
 }
 
 export default function Index() {
-  const {profile, latestWritings} = useLoaderData<{
+  const {profile, latestWritings, techBlogPosts} = useLoaderData<{
     profile: AppBskyActorDefs.ProfileViewDetailed,
-    latestWritings: any[]
+    latestWritings: any[],
+    techBlogPosts: any[]
   }>()
 
   return (
-    <div className="flex-auto min-w-0 flex flex-col">
-      <main className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
-        <section className="hero-wrapper mb-16">
-          <header className="hero">
-            <h1 className="text-4xl font-bold mb-4">Hey, I'm Skiddle! 👋</h1>
-            <TypingText 
-              lines={[
-                "I'm a software developer",
-                "passionate about JavaScript and open protocols,",
-                "creating better information ecosystems."
-              ]}
-              className="hero-description text-lg mb-4"
-            />
-            <TypingText 
-              lines={[
-                "Check out my writings, explore my open-source projects,",
-                "or learn more about what I'm working on."
-              ]}
-              className="hero-description text-lg"
-              startDelay={2.4}
-            >
-              {(line, index) => {
-                if (index === 0) {
-                  return (
-                    <>
-                      Check out my <Link to="/writing" className="text-accent-blue hover:underline">writings</Link>, 
-                      explore my <a href="https://github.com/arcestia" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">open-source projects</a>,
-                    </>
-                  );
-                }
-                return line;
-              }}
-            </TypingText>
-          </header>
-          <div className="decoration">
-            <img
-              className="image hero-image"
-              src={profile?.avatar}
-              alt="Skiddle's avatar"
-            />
-          </div>
-        </section>
-        {latestWritings.length > 0 && (
-          <section className="segment">
-            <h2 className="home-heading">
-              <div>
-                <div className="title">Latest Writings</div>
-              </div>
-              <Link to="/writing" className="button">All Writings</Link>
-            </h2>
-            <div className="posts newspaper">
-              {latestWritings.map((writing, index) => {
-                const isNew = index === 0;
-                const isExternal = writing.type === 'external';
-                const isLocal = writing.type === 'local';
-                const date = new Date(writing.date);
-                const formattedDate = date.toLocaleDateString('en-US', { 
-                  year: 'numeric',
-                  month: 'long'
-                });
-
-                return (
-                  <Link key={writing.url} to={writing.url} className="post">
-                    <div className="post-row">
-                      <h3 className="post-title">{writing.title}</h3>
-                      <time className={isNew ? 'new-post' : ''}>
-                        {formattedDate}
-                        {isNew && <div className="new-post-pill">New!</div>}
-                      </time>
-                    </div>
-                    <p className="text-secondary text-sm italic">
-                      {isExternal ? writing.source : isLocal ? 'Local Blog' : 'Atprotoblog'}
-                    </p>
-                  </Link>
-                );
-              })}
+    <div className="py-8 px-6 md:px-8 w-full max-w-5xl mx-auto">
+      {/* Hero Section */}
+      <section className="mb-12">
+        <div className="flex flex-col md:flex-row md:items-center gap-8">
+          <div className="flex-1">
+            <h1 className="text-4xl font-bold mb-4">Hey, I'm Skiddle!</h1>
+            <p className="text-lg mb-3">
+              I'm a software engineer, open-source creator, and former professional chef. I've been making websites since 1998 and writing on this blog for the past decade.
+            </p>
+            <p className="text-lg mb-6">
+              I enjoy weight lifting, reading sci-fi and fantasy, playing retro video games, and spending time with my partner and friends.
+            </p>
+            <div className="flex gap-3">
+              <Link 
+                to="/about" 
+                className="inline-block px-4 py-2 bg-secondary text-white font-medium rounded hover:bg-secondary/90 transition-colors"
+              >
+                About Me
+              </Link>
+              <a 
+                href="https://bsky.app/profile/skiddle.id" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-block px-4 py-2 border border-secondary text-secondary font-medium rounded hover:bg-secondary/10 transition-colors"
+              >
+                Newsletter
+              </a>
             </div>
-          </section>
-        )}
-        <section className="mb-16">
-          <h2 className="text-2xl font-bold mb-4">Projects</h2>
-          <div className="grid gap-6 md:grid-cols-2">
-            {projects.map((project) => (
-              <a
-                key={project.name}
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block p-6 bg-tertiary rounded-lg hover:bg-secondary transition-colors duration-200"
-              >
-                <h3 className="text-xl font-semibold mb-2">{project.name}</h3>
-                <p className="text-neutral-800 dark:text-neutral-200 mb-4">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.languages.map((lang) => (
-                    <img
-                      key={lang}
-                      src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${lang}/${lang}-original.svg`}
-                      alt={`${lang} icon`}
-                      className="w-6 h-6"
-                    />
-                  ))}
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="project-tag"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </a>
-            ))}
           </div>
-        </section>
-        <section className="mb-16">
-          <h2 className="text-2xl font-bold mb-4">Connect</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-            {socialLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center p-2.5 bg-tertiary rounded-lg hover:bg-secondary transition-colors duration-200 group"
-              >
-                <FontAwesomeIcon 
-                  icon={link.icon} 
-                  className="w-5 h-5 text-secondary group-hover:text-primary transition-colors" 
-                />
-                <span className="ml-2 text-sm text-secondary group-hover:text-primary transition-colors">{link.name}</span>
-              </a>
-            ))}
+          <div className="md:w-1/3 flex justify-center">
+            <img 
+              src={profile?.avatar} 
+              alt="Skiddle's avatar" 
+              className="w-48 h-48 rounded-lg object-cover"
+            />
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
+
+      {/* Notes Section */}
+      <section className="mb-12">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold">Notes</h2>
+          <Link to="/writing" className="text-secondary hover:underline">See All</Link>
+        </div>
+        <p className="text-lg mb-4">Personal notes about life, music, projects, and everything else.</p>
+        
+        <div className="space-y-6">
+          {latestWritings.slice(0, 3).map((writing, index) => {
+            const date = new Date(writing.date);
+            const formattedDate = date.toLocaleDateString('en-US', { 
+              year: 'numeric',
+              month: 'long'
+            });
+            const isNew = index === 0;
+
+            return (
+              <div key={writing.url} className="border-b border-light pb-4">
+                <div className="flex justify-between items-start mb-1">
+                  <Link to={writing.url} className="text-xl font-semibold hover:text-secondary transition-colors">
+                    {writing.title}
+                  </Link>
+                  <div className="text-sm text-300">
+                    {formattedDate}
+                    {isNew && <span className="ml-2 px-2 py-0.5 bg-accent-blue text-white text-xs rounded-full">New</span>}
+                  </div>
+                </div>
+                <div className="text-sm text-300">
+                  {writing.type === 'external' ? writing.source : writing.type === 'local' ? 'Local Blog' : 'Atprotoblog'}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Tech Blog Section */}
+      <section className="mb-12">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold">Tech Blog</h2>
+          <Link to="/writing" className="text-secondary hover:underline">See All</Link>
+        </div>
+        <p className="text-lg mb-4">Guides, references, and tutorials.</p>
+        
+        <div className="space-y-4">
+          {techBlogPosts.map((post, index) => {
+            const date = new Date(post.date);
+            const formattedDate = date.toLocaleDateString('en-US', { 
+              year: 'numeric',
+              month: 'long'
+            });
+            const isNew = index === 0;
+            
+            return (
+              <div key={post.slug} className="border-b border-light pb-4">
+                <div className="flex justify-between items-start mb-1">
+                  <Link to={`/blog/${post.year}/${post.slug}`} className="text-xl font-semibold hover:text-secondary transition-colors">
+                    {post.title}
+                  </Link>
+                  <div className="text-sm text-300 flex items-center">
+                    {formattedDate}
+                    {isNew && <span className="ml-2 px-2 py-0.5 bg-accent-blue text-white text-xs rounded-full">New</span>}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section className="mb-16">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold">Projects</h2>
+          <Link to="/projects" className="text-secondary hover:underline">All Projects</Link>
+        </div>
+        <p className="text-lg mb-4">Open-source projects I've worked on over the years.</p>
+        
+        <div className="grid gap-6 md:grid-cols-2">
+          {projects.map((project) => (
+            <a
+              key={project.name}
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block p-6 bg-tertiary rounded-lg hover:bg-secondary/10 transition-colors"
+            >
+              <h3 className="text-xl font-semibold mb-2">{project.name}</h3>
+              <p className="text-neutral-800 dark:text-neutral-200 mb-4">
+                {project.description}
+              </p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {project.languages.map((lang) => (
+                  <img
+                    key={lang}
+                    src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${lang}/${lang}-original.svg`}
+                    alt={`${lang} icon`}
+                    className="w-6 h-6"
+                  />
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {project.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-2 py-1 bg-secondary/20 text-secondary text-xs rounded"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
     </div>
   )
 }

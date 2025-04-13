@@ -7,18 +7,14 @@ import {
   ScrollRestoration,
   useRouteError,
   useLocation,
-  NavLink,
 } from '@remix-run/react'
 import { LinksFunction } from '@remix-run/node'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBluesky, faGithub } from '@fortawesome/free-brands-svg-icons'
-import { faRss } from '@fortawesome/free-solid-svg-icons'
+import { Sidebar } from './components/Sidebar'
 
 import tailwindStyles from './tailwind.css'
 import themeStyles from './styles/theme.css'
 import homeStyles from './styles/home.css'
 import blogStyles from './styles/blog.css'
-import { ThemeSwitcher } from './components/theme-switcher'
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: tailwindStyles },
@@ -53,61 +49,64 @@ export default function App() {
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="flex flex-col min-h-screen bg-main text-color antialiased">
-        <header className="sticky top-0 z-50 border-b border-light bg-header-blur">
-          <div className="container mx-auto px-4 sm:px-6">
-            <div className="flex justify-between items-center h-16">
-              <nav className="flex items-center space-x-4 sm:space-x-6">
-                <NavLink 
-                  to="/" 
-                  end
-                  className={({ isActive }) =>
-                    `text-color hover:text-secondary transition-colors ${isActive ? 'font-bold' : ''}`
-                  }
-                >
-                  Home
-                </NavLink>
-                <NavLink 
-                  to="/writing"
-                  className={({ isActive }) =>
-                    `text-color hover:text-secondary transition-colors ${isActive ? 'font-bold' : ''}`
-                  }
-                >
-                  Writing
-                </NavLink>
-                <NavLink 
-                  to="/about"
-                  className={({ isActive }) =>
-                    `text-color hover:text-secondary transition-colors ${isActive ? 'font-bold' : ''}`
-                  }
-                >
-                  About
-                </NavLink>
-              </nav>
-              <ThemeSwitcher />
-            </div>
+        <div className="flex flex-1">
+          {/* Sidebar for desktop */}
+          <div className="hidden md:block">
+            <Sidebar />
           </div>
-        </header>
-        <main className="flex-1">
-          <Outlet />
-        </main>
-        <footer className="bg-neutral-100 dark:bg-neutral-800 py-8">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-2 text-sm text-neutral-600 dark:text-neutral-400">
-              <span>&copy; {new Date().getFullYear()} Laurensius Jeffrey Chandra</span>
-              <span className="hidden sm:inline">•</span>
-              <span>
-                Built with{' '}
-                <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">
-                  React
-                </a>
-                {' '}and{' '}
-                <a href="https://atproto.com/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">
-                  AT Protocol
-                </a>
-              </span>
+          
+          {/* Mobile header */}
+          <header className="md:hidden sticky top-0 z-50 border-b border-light bg-header-blur">
+            <div className="container mx-auto px-4 sm:px-6">
+              <div className="flex justify-between items-center h-16">
+                <nav className="flex items-center space-x-4 sm:space-x-6">
+                  <a 
+                    href="/" 
+                    className="text-color hover:text-secondary transition-colors font-bold"
+                  >
+                    skiddle.dev
+                  </a>
+                </nav>
+                <button 
+                  className="text-color hover:text-secondary transition-colors"
+                  aria-label="Menu"
+                >
+                  ☰
+                </button>
+              </div>
             </div>
+          </header>
+          
+          {/* Main content */}
+          <div className="flex-1 flex flex-col">
+            <main className="flex-1">
+              <Outlet />
+            </main>
+            
+            <footer className="bg-neutral-100 dark:bg-neutral-800 py-8">
+              <div className="container mx-auto px-4">
+                <div className="text-center text-sm text-neutral-600 dark:text-neutral-400">
+                  <div className="flex justify-center space-x-4 mb-4">
+                    <a href="mailto:hello@skiddle.dev" className="hover:text-secondary">Email</a>
+                    <span>•</span>
+                    <a href="https://github.com/arcestia" className="hover:text-secondary">GitHub</a>
+                    <span>•</span>
+                    <a href="https://bsky.app/profile/skiddle.id" className="hover:text-secondary">Bluesky</a>
+                    <span>•</span>
+                    <a href="#" className="hover:text-secondary">Buy me a coffee</a>
+                  </div>
+                  <div className="flex justify-center space-x-2 mb-2">
+                    <a href="#" className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-medium">Contact</a>
+                    <a href="#" className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">Privacy</a>
+                  </div>
+                  <div>
+                    Made with ❤️ by Laurensius Jeffrey Chandra
+                  </div>
+                </div>
+              </div>
+            </footer>
           </div>
-        </footer>
+        </div>
         <ScrollRestoration />
         <Scripts />
       </body>

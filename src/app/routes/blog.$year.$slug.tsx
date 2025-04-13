@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown'
 import { promises as fs } from 'fs'
 import path from 'path'
 import { getProfile } from '../../atproto'
+import { Comments } from '../components/Comments'
 
 interface BlogPost {
   content: string
@@ -21,6 +22,10 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   const profile = await getProfile()
   
   try {
+    if (!year || !slug) {
+      throw new Error('Year and slug parameters are required')
+    }
+
     const postsDir = path.join(process.cwd(), 'posts', year)
     // Find the file that matches the slug pattern
     const files = await fs.readdir(postsDir)
@@ -49,7 +54,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     const blogPost: BlogPost = {
       content: contentParts.join('---'),
       frontmatter: {
-        title: frontmatter.title || slug.replace(/-/g, ' '),
+        title: frontmatter.title || (slug || '').replace(/-/g, ' '),
         date: frontmatter.date || frontmatter.updated || new Date().toISOString(),
         description: frontmatter.description || '',
         tags: frontmatter.tags || '',
@@ -78,49 +83,34 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
   ]
 }
 
-const markdownComponents = {
-  h1: ({ children }: { children: React.ReactNode }) => (
-    <h1 className="text-4xl font-bold mb-8">{children}</h1>
-  ),
-  h2: ({ children }: { children: React.ReactNode }) => (
-    <h2 className="text-3xl font-bold mb-6 mt-12">{children}</h2>
-  ),
-  h3: ({ children }: { children: React.ReactNode }) => (
-    <h3 className="text-2xl font-bold mb-4 mt-8">{children}</h3>
-  ),
-  p: ({ children }: { children: React.ReactNode }) => (
-    <p className="mb-6 leading-relaxed">{children}</p>
-  ),
-  a: ({ href, children }: { href?: string; children: React.ReactNode }) => (
+// Define the components in a way that's compatible with ReactMarkdown
+const markdownComponents: React.ComponentProps<typeof ReactMarkdown>['components'] = {
+  h1: (props) => <h1 className="text-4xl font-bold mb-8">{props.children}</h1>,
+  h2: (props) => <h2 className="text-3xl font-bold mb-6 mt-12">{props.children}</h2>,
+  h3: (props) => <h3 className="text-2xl font-bold mb-4 mt-8">{props.children}</h3>,
+  p: (props) => <p className="mb-6 leading-relaxed">{props.children}</p>,
+  a: (props) => (
     <a
-      href={href}
+      href={props.href}
       className="text-blue-600 hover:text-blue-800 underline"
       target="_blank"
       rel="noopener noreferrer"
     >
-      {children}
+      {props.children}
     </a>
   ),
-  ul: ({ children }: { children: React.ReactNode }) => (
-    <ul className="list-disc pl-6 mb-6 space-y-2">{children}</ul>
-  ),
-  ol: ({ children }: { children: React.ReactNode }) => (
-    <ol className="list-decimal pl-6 mb-6 space-y-2">{children}</ol>
-  ),
-  li: ({ children }: { children: React.ReactNode }) => (
-    <li>{children}</li>
-  ),
-  blockquote: ({ children }: { children: React.ReactNode }) => (
+  ul: (props) => <ul className="list-disc pl-6 mb-6 space-y-2">{props.children}</ul>,
+  ol: (props) => <ol className="list-decimal pl-6 mb-6 space-y-2">{props.children}</ol>,
+  li: (props) => <li>{props.children}</li>,
+  blockquote: (props) => (
     <blockquote className="border-l-4 border-gray-300 pl-4 italic my-6">
-      {children}
+      {props.children}
     </blockquote>
   ),
-  code: ({ children }: { children: React.ReactNode }) => (
-    <code className="bg-gray-100 px-1 rounded">{children}</code>
-  ),
-  pre: ({ children }: { children: React.ReactNode }) => (
+  code: (props) => <code className="bg-gray-100 px-1 rounded">{props.children}</code>,
+  pre: (props) => (
     <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto mb-6">
-      {children}
+      {props.children}
     </pre>
   ),
 }
@@ -148,6 +138,9 @@ export default function BlogPost() {
           {post.content}
         </ReactMarkdown>
       </div>
+      
+      {/* Comments section */}
+      <Comments title={post.frontmatter.title} />
     </div>
   )
 }
