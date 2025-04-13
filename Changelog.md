@@ -67,3 +67,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved theme color contrast for better accessibility
 - Updated button styling in footer to use theme variables consistently
 - Fixed build process for Cloudflare Pages deployment by using direct path to Remix CLI
+- Resolved Cloudflare Pages deployment configuration by aligning wrangler.toml with the correct build command
