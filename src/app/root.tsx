@@ -87,13 +87,13 @@ export default function App() {
               <div className="container mx-auto px-4">
                 <div className="text-center text-sm text-neutral-600 dark:text-neutral-400">
                   <div className="flex justify-center space-x-4 mb-4">
-                    <a href="mailto:hello@skiddle.dev" className="hover:text-secondary">Email</a>
+                    <a href="mailto:hello@skiddle.id" className="hover:text-secondary">Email</a>
                     <span>•</span>
                     <a href="https://github.com/arcestia" className="hover:text-secondary">GitHub</a>
                     <span>•</span>
                     <a href="https://bsky.app/profile/skiddle.id" className="hover:text-secondary">Bluesky</a>
                     <span>•</span>
-                    <a href="#" className="hover:text-secondary">Buy me a coffee</a>
+                    <a href="https://github.com/sponsors/arcestia" className="hover:text-secondary">Donate!</a>
                   </div>
                   <div className="flex justify-center space-x-2 mb-2">
                     <a href="#" className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-medium">Contact</a>

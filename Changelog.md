@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Redesigned home page with sections for Notes and Tech Blog
 - Added simplified footer with contact links
 - Added comments section to local blog posts
+- Created dedicated routes for Notes (/notes) and Tech Blog (/tech) with separate content lists
+- Added LocalPost type to support better type checking for local blog posts
 
 ### Changed
 - Removed Redis cache dependency to enable deployment on Cloudflare Pages
@@ -24,4 +26,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed Deep Dives section and restored Projects section to its previous implementation
 - Removed copyright text from footer to simplify the layout
 - Adjusted layout to reduce empty space on right side of the page
-- Fixed "See All" links for Notes and Tech Blog sections to point to the correct /writing route
+- Updated "See All" links to point to dedicated routes for Notes and Tech Blog
+- Enhanced Link component to accept additional props like className, target, and rel
+- Updated email address to hello@skiddle.id in footer
+- Changed website name from skiddle.dev to skiddle.id in sidebar
+- Updated Donate link to point to GitHub Sponsors
+- Changed RSS feed link to point to /feed instead of /rss.xml
+- Simplified sidebar by removing Guides and Project Writeups sections

@@ -10,6 +10,7 @@ import { getPosts } from '../../atproto'
 import { externalLinks } from '../../data/external-links'
 import { fetchMediumFeed } from '../../utils/fetchMediumFeed'
 import { getLocalPosts } from '../../utils/getLocalPosts'
+import { TypingText } from '../components/typing-text'
 
 export const loader = async () => {
   const [profile, posts, mediumLinks, localPosts] = await Promise.all([
@@ -76,13 +77,23 @@ export default function Index() {
       <section className="mb-12">
         <div className="flex flex-col md:flex-row md:items-center gap-8">
           <div className="flex-1">
-            <h1 className="text-4xl font-bold mb-4">Hey, I'm Skiddle!</h1>
-            <p className="text-lg mb-3">
-              I'm a software engineer, open-source creator, and former professional chef. I've been making websites since 1998 and writing on this blog for the past decade.
-            </p>
-            <p className="text-lg mb-6">
-              I enjoy weight lifting, reading sci-fi and fantasy, playing retro video games, and spending time with my partner and friends.
-            </p>
+            <TypingText
+              lines={[
+                "Hey, I'm Skiddle!",
+                "I'm a software engineer, open-source creator, and former professional chef. I've been making websites since 1998 and writing on this blog for the past decade.",
+                "I enjoy weight lifting, reading sci-fi and fantasy, playing retro video games, and spending time with my partner and friends."
+              ]}
+              className="mb-6"
+              startDelay={0.2}
+            >
+              {(line, i) => (
+                i === 0 ? (
+                  <h1 className="text-4xl font-bold mb-4">{line}</h1>
+                ) : (
+                  <p className="text-lg mb-3">{line}</p>
+                )
+              )}
+            </TypingText>
             <div className="flex gap-3">
               <Link 
                 to="/about" 
@@ -114,7 +125,7 @@ export default function Index() {
       <section className="mb-12">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">Notes</h2>
-          <Link to="/writing" className="text-secondary hover:underline">See All</Link>
+          <Link to="/notes" className="text-secondary hover:underline">See All</Link>
         </div>
         <p className="text-lg mb-4">Personal notes about life, music, projects, and everything else.</p>
         
@@ -151,7 +162,7 @@ export default function Index() {
       <section className="mb-12">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">Tech Blog</h2>
-          <Link to="/writing" className="text-secondary hover:underline">See All</Link>
+          <Link to="/tech" className="text-secondary hover:underline">See All</Link>
         </div>
         <p className="text-lg mb-4">Guides, references, and tutorials.</p>
         

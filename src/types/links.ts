@@ -14,4 +14,14 @@ export interface BlogPost {
   rkey: string
 }
 
-export type WritingItem = ExternalLink | BlogPost
+export interface LocalPost {
+  type: 'local'
+  title: string
+  url: string
+  date: string
+  slug: string
+  year: string
+  description?: string
+}
+
+export type WritingItem = ExternalLink | BlogPost | LocalPost
