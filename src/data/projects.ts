@@ -15,7 +15,7 @@ export const projects: Project[] = [
     languages: ['typescript', 'react']
   },
   {
-    name: 'shortlink',
+    name: 'Shortlink',
     description: 'A simple URL shortener service powered by Cloudflare Workers and Turso.',
     url: 'https://github.com/arcestia/shortlink',
     tags: ['Cloudflare', 'Shortlink', 'Turso', 'Honojs'],
