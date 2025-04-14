@@ -4,8 +4,8 @@ export default {
   serverModuleFormat: "esm",
   tailwind: true,
   appDirectory: "src/app",
-  assetsBuildDirectory: "public/build",
-  publicPath: "/build/",
+  assetsBuildDirectory: "build/client",
+  publicPath: "/",
   serverBuildPath: "build/index.js",
   future: {
     v3_fetcherPersist: true,
