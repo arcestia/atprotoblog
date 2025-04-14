@@ -1,16 +1,7 @@
 # Cloudflare Pages configuration
 name = "atprotoblog"
 compatibility_date = "2023-10-30"
-
-# Build configuration
-[build]
-command = "node cloudflare-build.js"
-
-# Site configuration
-[site]
-bucket = "public/build"
-
-# Pages specific configuration
+main = "./build/index.js"
 
 # Environment variables for production
 [vars]

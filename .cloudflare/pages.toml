@@ -1,5 +1,5 @@
 [build]
-command = "node ./node_modules/@remix-run/dev/dist/cli.js build"
+command = "npm run build"
 output_directory = "build/client"
 
 [site]

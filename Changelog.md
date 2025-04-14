@@ -23,11 +23,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added specific pages:build script for Cloudflare Pages deployment
 
 ### Changed
+- Updated deployment target from Cloudflare Pages to Vercel
+- Reverted Remix configuration files (remix.config.js and remix.config.cjs) to use standard Remix paths for Vercel compatibility
+- Changed build output directories back to `public/build` from `build/client` for Vercel deployment
+- Modified `publicPath` from `/` to `/build/` in Remix configuration for proper asset loading on Vercel
+- Updated vercel.json to use Vercel-specific configuration instead of Cloudflare-specific settings
 - Removed Redis cache dependency to enable deployment on Cloudflare Pages
 - Modified API functions to work without caching
 - Updated deployment configuration for Cloudflare Pages
 - Removed Docker-related deployment files (Dockerfile and docker-compose.yml)
-- Simplified wrangler.toml configuration for Cloudflare Pages
+- Simplified wrangler.toml configuration to use npm build script instead of custom cloudflare-build.js
+- Updated .cloudflare/pages.toml to use npm build script for consistent build process
+- Updated Remix configuration files (remix.config.js and remix.config.cjs) to align with Cloudflare Pages requirements
+- Changed build output directories to use `build/client` instead of `public/build` for better Cloudflare Pages compatibility
+- Modified `publicPath` from `/build/` to `/` in Remix configuration for proper asset loading on Cloudflare Pages
+- Updated `cloudflare:build` script in package.json to set NODE_ENV directly for more reliable builds
 - Updated Tech Blog section to use local posts instead of sample data
 - Removed Deep Dives section and restored Projects section to its previous implementation
 - Removed copyright text from footer to simplify the layout
@@ -53,10 +63,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated wrangler.toml with production environment variables for Cloudflare Pages deployment
 - Completely revised README.md with modern features, detailed deployment instructions, and improved documentation
 - Modified build configuration to directly use Remix CLI through node_modules path
-- Updated Remix configuration files (remix.config.js and remix.config.cjs) to align with Cloudflare Pages requirements
-- Changed build output directories to use `build/client` instead of `public/build` for better Cloudflare Pages compatibility
-- Modified `publicPath` from `/build/` to `/` in Remix configuration for proper asset loading on Cloudflare Pages
-- Updated `cloudflare:build` script in package.json to set NODE_ENV directly for more reliable builds
 
 ### Removed
 - Deleted PM2 ecosystem configuration file (ecosystem.config.cjs)

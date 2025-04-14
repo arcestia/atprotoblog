@@ -1,16 +1,12 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "package.json",
-        "use": "@cloudflare/static-build"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "/build/server/index.js"
-      }
-    ],
-    "outputDirectory": "build/client"
-  }
+  "version": 2,
+  "buildCommand": "npm run build",
+  "outputDirectory": "build/client",
+  "framework": "remix",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.js"
+    }
+  ]
+}
