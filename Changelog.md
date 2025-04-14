@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added Bluesky icon to the topbar for quick access to Bluesky profile
 - Created dedicated Projects page to showcase all open-source projects
 - Added specific pages:build script for Cloudflare Pages deployment
+- Added `vercel:build` script to package.json for Vercel-specific build process
 
 ### Changed
 - Updated deployment target from Cloudflare Pages to Vercel
@@ -28,6 +29,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed build output directories back to `public/build` from `build/client` for Vercel deployment
 - Modified `publicPath` from `/` to `/build/` in Remix configuration for proper asset loading on Vercel
 - Updated vercel.json to use Vercel-specific configuration instead of Cloudflare-specific settings
+- Simplified vercel.json configuration to use Vercel's automatic Remix detection
+- Configured vercel.json to use the dedicated vercel:build script
 - Removed Redis cache dependency to enable deployment on Cloudflare Pages
 - Modified API functions to work without caching
 - Updated deployment configuration for Cloudflare Pages

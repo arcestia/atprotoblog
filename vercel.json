@@ -1,12 +1,5 @@
 {
-  "version": 2,
-  "buildCommand": "npm run build",
-  "outputDirectory": "build/client",
   "framework": "remix",
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.js"
-    }
-  ]
+  "buildCommand": "npm run vercel:build",
+  "devCommand": "npm run dev"
 }
