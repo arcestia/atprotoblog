@@ -22,6 +22,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Created dedicated Projects page to showcase all open-source projects
 - Added specific pages:build script for Cloudflare Pages deployment
 - Added `vercel:build` script to package.json for Vercel-specific build process
+- Successfully deployed the application to Vercel platform
+- Created api/server.js file to handle server-side rendering on Vercel
+- Added server-side routing configuration in vercel.json
 
 ### Changed
 - Updated deployment target from Cloudflare Pages to Vercel
@@ -31,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated vercel.json to use Vercel-specific configuration instead of Cloudflare-specific settings
 - Simplified vercel.json configuration to use Vercel's automatic Remix detection
 - Configured vercel.json to use the dedicated vercel:build script
+- Enhanced vercel.json with proper routing and serverless function configuration
 - Removed Redis cache dependency to enable deployment on Cloudflare Pages
 - Modified API functions to work without caching
 - Updated deployment configuration for Cloudflare Pages
@@ -82,3 +86,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed build process for Cloudflare Pages deployment by using direct path to Remix CLI
 - Resolved Cloudflare Pages deployment configuration by aligning wrangler.toml with the correct build command
 - Updated wrangler.toml to use correct build output directory (public/build) to match Remix configuration
+- Fixed 404 error on Vercel by adding server-side routing configuration in vercel.json and creating api/server.js file to handle server-side rendering
