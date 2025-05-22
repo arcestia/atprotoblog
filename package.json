@@ -4,14 +4,11 @@
   "type": "module",
   "sideEffects": false,
   "scripts": {
-    "build": "npx remix build",
-    "dev": "remix dev",
-    "start": "remix-serve build/index.js",
+    "build": "next build",
+    "dev": "next dev",
+    "start": "next start",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
-    "typecheck": "tsc",
-    "pages:build": "node ./node_modules/@remix-run/dev/dist/cli.js build",
-    "cloudflare:build": "NODE_ENV=production node ./node_modules/@remix-run/dev/dist/cli.js build",
-    "vercel:build": "remix build"
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@atproto/api": "^0.12.2",
@@ -19,11 +16,9 @@
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@remix-run/node": "^2.4.1",
-    "@remix-run/react": "^2.4.1",
-    "@remix-run/serve": "^2.4.1",
     "framer-motion": "^11.11.17",
     "isbot": "^4.1.0",
+    "next": "^14.2.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^9.0.1",
@@ -33,7 +28,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.0.2",
     "@eslint/js": "^9.0.0",
-    "@remix-run/dev": "^2.4.1",
+    "@types/node": "^20.0.0",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.7.4",

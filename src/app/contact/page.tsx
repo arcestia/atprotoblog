@@ -1,21 +1,15 @@
-import React from 'react'
-import {MetaFunction} from '@remix-run/node'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBluesky, faGithub } from '@fortawesome/free-brands-svg-icons'
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
-import { faMedium } from '@fortawesome/free-brands-svg-icons'
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBluesky, faGithub, faMedium } from '@fortawesome/free-brands-svg-icons';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import type { Metadata } from 'next';
 
-export const meta: MetaFunction = () => {
-  return [
-    {title: "Contact | Skiddle's Blog"},
-    {
-      name: 'description',
-      content: 'Get in touch with me through various social platforms and communication channels.',
-    },
-  ]
-}
+export const metadata: Metadata = {
+  title: "Contact | Skiddle's Blog",
+  description: 'Get in touch with me through various social platforms and communication channels.',
+};
 
-export default function Contact() {
+export default function ContactPage() {
   const contactMethods = [
     {
       name: 'Bluesky',
@@ -35,7 +29,7 @@ export default function Contact() {
       url: 'https://medium.com/@arcestia',
       icon: <FontAwesomeIcon icon={faMedium} className="w-5 h-5" />,
     },
-  ]
+  ];
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -50,7 +44,7 @@ export default function Contact() {
 
         <div className="space-y-6">
           {contactMethods.map((method) => (
-            <a
+            <a 
               key={method.name}
               href={method.url}
               target="_blank"
@@ -72,17 +66,17 @@ export default function Contact() {
             Interested in contributing to my projects? Check out my repositories on GitHub
             and feel free to open issues or submit pull requests.
           </p>
-          <a
-            href="https://github.com/arcestia/atprotoblog"
+          <a 
+            href="https://github.com/arcestia/atprotoblog" // This is the current repo name from the problem description
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center accent-blue hover-text-purple transition-colors"
+            className="inline-flex items-center text-[var(--accent-blue)] hover:text-purple-500 transition-colors" // Updated class for accent color
           >
-            View ATProtoBlog Repository 
+            View Project Repository 
             <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4 ml-2" />
           </a>
         </div>
       </div>
     </div>
-  )
+  );
 }
