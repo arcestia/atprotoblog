@@ -3,14 +3,8 @@
   "buildCommand": "npm run vercel:build",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/api/server"
-    }
-  ],
   "functions": {
-    "api/server.js": {
+    "build/index.js": {
       "includeFiles": "build/**"
     }
   }
