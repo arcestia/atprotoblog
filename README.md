@@ -1,5 +1,10 @@
 # ATProtoBlog - A Modern Blog Built with AT Protocol
 
+> ⚠️ **ARCHIVED / NOT MAINTAINED**
+>
+> This repository is no longer actively maintained and is published here for reference purposes only. 
+> The active codebase for this blog has moved. Please visit the new repository at: **[https://github.com/Skiddle-ID/skiddle.id](https://github.com/Skiddle-ID/skiddle.id)**
+
 A modern, responsive blog that pulls posts from your PDS (Personal Data Server) using the `com.whtwnd.blog.entry` lexicon, with support for local markdown posts.
 
 ```ts
